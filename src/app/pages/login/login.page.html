@@ -1,0 +1,52 @@
+<ion-content class="custom-content" scrollY="false" scrollX="false">
+
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <img src="assets/icon/Energy2.png" alt="Logo de la aplicación">
+
+      <app-custom-input 
+      icon="mail-sharp" 
+      autocomplete="email" 
+      [control]="form.controls.email" 
+      type="email"
+      label="Correo"></app-custom-input>
+      
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+
+        <div *ngIf="form.controls.email.errors?.['required']">Ingrese su correo</div>
+        <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo electronico valido</div>
+      
+      </div>
+  
+      <app-custom-input 
+      icon="lock-closed-sharp"
+      autocomplete="password" 
+      [control]="form.controls.password" 
+      type="password" 
+      label="Contraseña"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+
+        <div *ngIf="form.controls.password.errors?.['required']">Ingrese su contraseña</div>
+      
+      </div>
+
+      <p routerLink="/forgot-pass">¿Olvidaste tu contraseña?</p>
+
+      <ion-button expand="block"  class="submit" node="ios" type="submit" [disabled]="form.invalid">
+        Ingresar
+      </ion-button>
+
+      <ion-button routerLink="/sign-up" routerLinkActive="router-link-active"  class="ion-margin-top" expand="block"   node="ios"  fill="outline">
+        Registrarse
+      </ion-button>
+
+
+    </form>
+
+
+  </div>
+  
+</ion-content>
+
