@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  pages = [
+    { title: 'Inicio', url: 'main', icon: 'home-outline'},
+    { title: 'lugares', url: 'ubication', icon: 'earth-outline'}
+  ]
 
   firebaseServ = inject(FirebaseService);
   utilsServ = inject(UtilsService);
@@ -18,6 +22,10 @@ export class MainPage implements OnInit {
   ngOnInit() {
   }
   
+  ubication(){
+     this.router.navigate(['/ubication']);
+
+  }
   signOut(){
     this.firebaseServ.signOut();
     this.router.navigate(['/']);

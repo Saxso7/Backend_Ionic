@@ -1,9 +1,5 @@
+<app-header></app-header>
 <ion-content class="custom-content" scrollY="false" scrollX="false">
-  <ion-toolbar color="light">
-    <ion-buttons slot="start" (click)="back()">
-      <ion-back-button default-href="#">Atras</ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
   <div class="d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 

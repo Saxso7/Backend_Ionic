@@ -4,7 +4,7 @@ import { CustomInputComponent } from './componentes/custom-input/custom-input.co
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './componentes/footer/footer.component';
-import { MenuComponent } from './componentes/menu/menu.component';
+import { HeaderComponent } from './componentes/header/header.component';
 
 //Exportamos los componentes
 
@@ -13,12 +13,12 @@ import { MenuComponent } from './componentes/menu/menu.component';
 
     CustomInputComponent,
     FooterComponent,
-    MenuComponent
+    HeaderComponent
   ],
   exports:[
     CustomInputComponent,
     FooterComponent,
-    MenuComponent,
+    HeaderComponent,
     ReactiveFormsModule
   ],
   imports: [

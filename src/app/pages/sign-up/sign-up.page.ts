@@ -59,7 +59,4 @@ export class SignUpPage implements OnInit {
       })
     }
   }
-  back() {
-    this.router.navigate(['/']);
-  }
 }
