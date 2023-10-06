@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  data: any;
 
   form = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -20,9 +22,15 @@ export class LoginPage implements OnInit {
   firebaseServ = inject(FirebaseService);
   utilsServ = inject(UtilsService);
   router = inject(Router);
-  constructor() { }
+  api = inject(ApiService);
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+    this.apiService.fetchData().subscribe((response) => {
+      this.data = response;
+      // Puedes trabajar con los datos aquí
+      console.log('Datos de la API:', this.data);
+    });
   }
 
   async submit(){

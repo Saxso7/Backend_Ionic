@@ -10,13 +10,13 @@
   </div>
 
   <div>
-    <ion-card color="medium" (click)="ubication()">
+    <ion-card color="medium" >
       <ion-card-header>
-        <ion-card-title>Nuestros gimnasios</ion-card-title>
+        <ion-card-title>Gimnasios cercanos</ion-card-title>
       </ion-card-header>
-
-      <ion-card-content>
-        <img src="assets/icon/maps.png" width="100" height="100" />
+    
+      <ion-card-content class="image-container">
+        <img src="assets/icon/maps.png" width="100" height="100" class="centered-image" (click)="ubication()"/>
       </ion-card-content>
     </ion-card>
   </div>
@@ -41,3 +41,6 @@
 
 </ion-content>
 <app-footer></app-footer>
+<ion-button (click)="signOut()" expand="block" fill="clear" shape="round">
+  Cerrar Sesion
+</ion-button>

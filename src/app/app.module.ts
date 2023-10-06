@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 //firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { environment } from 'src/environments/environment';
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
