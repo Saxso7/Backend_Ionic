@@ -1,8 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { FirebaseService } from '../services/firebase.service';
-import { UtilsService } from '../services/utils.service';
 
 
 @Injectable({
@@ -10,28 +7,21 @@ import { UtilsService } from '../services/utils.service';
 })
 export class AuthGuard implements CanActivate {
 
-  firebaseServ = inject(FirebaseService);
-  utilsServ = inject(UtilsService);
-  router = inject(Router);
+  constructor(private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-      return new Promise((resolve) => {
-        this.firebaseServ.getAuth().onAuthStateChanged((auth) => {
+    state: RouterStateSnapshot
+  ): boolean | UrlTree {
+    // Verificar la existencia del token de autenticación
+    const token = localStorage.getItem('userToken');
 
-          if(auth){
-            resolve(true)
-          }
-          else{
-            this.firebaseServ.signOut();
-            resolve(false);
-          }
-        })
-
-      });
-
+    if (token) {
+      // El token existe, permitir el acceso a la página
+      return true;
+    } else {
+      // El token no existe, redirigir al componente de inicio de sesión
+      return this.router.createUrlTree(['/login']); // Cambia '/login' por la ruta de tu página de inicio de sesión
+    }
   }
-  
 }

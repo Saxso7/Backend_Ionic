@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-main',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  data: any;
   pages = [
     { title: 'Inicio', url: 'main', icon: 'home-outline'},
     { title: 'lugares', url: 'ubication', icon: 'earth-outline'}
@@ -17,17 +19,26 @@ export class MainPage implements OnInit {
   firebaseServ = inject(FirebaseService);
   utilsServ = inject(UtilsService);
   router = inject(Router);
-  constructor() { }
+  api = inject(ApiService);
+  constructor( private apiService: ApiService) { }
 
   ngOnInit() {
+  
   }
   
   ubication(){
      this.router.navigate(['/ubication']);
 
   }
-  signOut(){
+  signOut() {
+    // Eliminar el token de autenticación de localStorage
+    localStorage.removeItem('userToken');
+    
+    // Llamar al método de signOut de Firebase si es necesario
     this.firebaseServ.signOut();
+    
+    // Navegar a la página de inicio
     this.router.navigate(['/']);
   }
-}
+
+  }

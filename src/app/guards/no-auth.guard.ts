@@ -1,37 +1,22 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { FirebaseService } from '../services/firebase.service';
-import { UtilsService } from '../services/utils.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoAuthGuard implements CanActivate {
-  firebaseServ = inject(FirebaseService);
-  utilsServ = inject(UtilsService);
-  router = inject(Router);
+  constructor(private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-      return new Promise((resolve) => {
-        this.firebaseServ.getAuth().onAuthStateChanged((auth) => {
+  canActivate(): boolean | UrlTree {
+    // Verificar la existencia del token de autenticación
+    const token = localStorage.getItem('userToken');
 
-          if(!auth){
-            resolve(true);
-          }
-            
-          else{
-            this.router.navigate(['/main']);
-            resolve(false);
-          }
-        })
-
-        
-
-      });
-
+    if (token) {
+      // El token existe, redirigir a la página principal (o la página a la que debes redirigir)
+      return this.router.createUrlTree(['/home']); // Cambia '/home' por la ruta a la que deseas redirigir a usuarios autenticados
+    } else {
+      // El token no existe, permitir el acceso a la página de inicio de sesión
+      return true;
+    }
   }
 }
