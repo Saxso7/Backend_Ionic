@@ -28,11 +28,16 @@ export class MainPage implements OnInit {
       console.log(this.data)
     });
   }
+  userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
   
-  ubication(){
-     this.router.navigate(['/ubication']);
 
+  // Función para verificar si el usuario tiene el rol "admin"
+  isUserAdmin(): boolean {
+    return this.userRole === 'admin';
   }
+  
+  
+  
   signOut() {
     // Eliminar el token de autenticación de localStorage
     localStorage.removeItem('userToken');
@@ -44,4 +49,11 @@ export class MainPage implements OnInit {
     this.router.navigate(['/']);
   }
 
+  openUbicaciones() {
+    // Abre la página de "Ubicaciones" con un pequeño retraso
+    setTimeout(() => {
+      this.router.navigate(['/ubication']);
+    }, 400); // 300 milisegundos (ajusta este valor según tus necesidades)
   }
+
+}
