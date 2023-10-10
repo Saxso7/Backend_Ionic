@@ -8,9 +8,11 @@
     <ion-list>
     
       <!-- Mostrar si el usuario es administrador -->
-      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>
+      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        Panel de administración</ion-item>
     
-      <ion-item (click)="openUbicaciones()"> <!-- Llama a la función openUbicaciones() -->
+      <ion-item routerLink="/ubication"> 
         <ion-icon name="navigate-outline"></ion-icon>
         Ubicaciones</ion-item>
 

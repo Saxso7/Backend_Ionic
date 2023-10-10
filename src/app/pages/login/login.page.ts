@@ -22,9 +22,9 @@ export class LoginPage implements OnInit {
     private utilsServ: UtilsService,
     private router: Router,
     private api: ApiService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async submit() {
     if (this.form.valid) {
@@ -34,15 +34,21 @@ export class LoginPage implements OnInit {
       try {
         await this.firebaseServ.signIn(this.form.value as User);
 
+         // Introduce un retraso de 3 segundos antes de mostrar el Toast
+      setTimeout(() => {
         this.utilsServ.presentToast({
           message: 'Bienvenido: ' + this.form.value.email,
           duration: 3000,
-          color: "primary",
-          position: "middle",
-          icon: "alert-circle-sharp"
+          color: 'primary',
+          position: 'middle',
+          icon: 'alert-circle-sharp'
         });
 
-        this.router.navigate(['/main']);
+        // Introduce un retraso adicional de 1 segundo (total de 4 segundos) antes de navegar a la página 'main'
+        setTimeout(() => {
+          this.router.navigate(['/main']);
+        }, 1000);
+      }, 3000); // 3000 milisegundos (3 segundos)
       } catch (error) {
         console.log(error);
         this.utilsServ.presentToast({

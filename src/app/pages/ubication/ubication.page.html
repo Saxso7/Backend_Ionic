@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item (click)="openMain()">Inicio</ion-item>
+      <ion-item routerLink="/main" >Inicio</ion-item>
     
       <!-- Mostrar si el usuario es administrador -->
       <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>

@@ -32,10 +32,18 @@ export class FirebaseService {
         // Inicio de sesión exitoso
         // Accede al token JWT
         const userToken = await result.user.getIdToken();
+
+
   
         // Guarda el token en localStorage para su posterior uso
         localStorage.setItem('userToken', userToken);
 
+        localStorage.setItem('userEmail', user.email);
+
+        
+        
+        // Navega nuevamente a la página 'main' para recargarla
+        this.router.navigateByUrl('/main');
         
       }
     } catch (error) {

@@ -45,4 +45,6 @@ export class ApiService {
     // Realiza una solicitud POST a la API con los encabezados
     return this.http.post(this.apiPost, form, { headers });
   }
+
+  
 }

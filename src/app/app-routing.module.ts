@@ -23,11 +23,11 @@ const routes: Routes = [
   },
   {
     path: 'ubication',
-    loadChildren: () => import('./pages/ubication/ubication.module').then( m => m.UbicationPageModule),// canActivate:[AuthGuard]
+    loadChildren: () => import('./pages/ubication/ubication.module').then( m => m.UbicationPageModule), canActivate:[AuthGuard]
   },
   {
     path: 'main',
-    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule),//canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule),canActivate: [AuthGuard]
   },
 ];
 
