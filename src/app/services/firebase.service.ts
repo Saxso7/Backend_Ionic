@@ -25,23 +25,22 @@ export class FirebaseService {
   }
 
   // Iniciar sesión en Firebase
-  async signIn(user: User) {
+  async signIn(user: User): Promise<void> {
     try {
       const result = await signInWithEmailAndPassword(getAuth(), user.email, user.password);
       if (result.user) {
         // Inicio de sesión exitoso
         // Accede al token JWT
         const userToken = await result.user.getIdToken();
-
+  
         // Guarda el token en localStorage para su posterior uso
         localStorage.setItem('userToken', userToken);
-        // Registra el token en la consola para verificar
-        console.log('Token JWT:', userToken);
+
         
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      // Manejo de errores de inicio de sesión
+      throw error; // Lanza el error para que se maneje en el componente
     }
   }
   // Actualizar el perfil del usuario en Firebase

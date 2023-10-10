@@ -23,7 +23,10 @@ export class MainPage implements OnInit {
   constructor( private apiService: ApiService) { }
 
   ngOnInit() {
-  
+    this.api.getData().subscribe((response) => {
+      this.data = response;
+      console.log(this.data)
+    });
   }
   
   ubication(){
