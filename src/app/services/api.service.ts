@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiPost = 'http://127.0.0.1:5000/post';
-  private apiGet = 'http://127.0.0.1:5000';
+  private apiPost = 'http://35.171.125.232//post';
+  private apiGet = 'http://35.171.125.232';
 
   constructor(private http: HttpClient) {}
 
