@@ -16,7 +16,6 @@
         <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
         <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
         <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
-        <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
         <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
         <ion-item (click)="signOut()" ><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
       <!-- Agrega más elementos de menú aquí -->
@@ -30,16 +29,40 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Ubicaciones</ion-title>
+      <ion-title>Tutoriales</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <div class="text-center"><h2>Nuestros  Gimnasios asociados</h2></div>
-    <!-- Asegúrate de que el contenedor tenga un tamaño fijo -->
-    <div id="map" style="width: 100%; height: 300px;"></div>
+    <div>
+      <h2 class="text-center">
+        Video Tutoriales de ejercicos para ti 
+      </h2>
+    </div>
+    <ion-list>
+      <ion-item class="select">
+        <ion-select [(ngModel)]="selectedOption" label="Seleccione una opción" label-placement="floating">
+          <ion-select-option value="1">Déficit Calórico</ion-select-option>
+          <ion-select-option value="2">Hiper Calórico</ion-select-option>
+          <ion-select-option value="3">Celiacos</ion-select-option>
+          <ion-select-option value="4">Otros</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div class="text-center">
+      <ion-title >Videos para ayudar tu crecimiento</ion-title>
+    </div>
+  
+  
+    <!-- Mostrar el iframe del video si hay una opción seleccionada -->
+    <iframe *ngIf="selectedOption" [src]="videoTutorial(videoUrl[selectedOption - 1])" width="100%" height="50%"></iframe>
+    <br>
+  
+    <!-- Resto de tus iframes... -->
+  
+    <img src="assets/icon/Energy2.png" alt="Logo de la aplicación" width="250" class="image2">
 
 
   </ion-content>
-<app-footer></app-footer>
+
 </div>
 

@@ -1,0 +1,60 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
+    
+      <!-- Mostrar si el usuario es administrador -->
+      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">
+        <ion-icon name="person-circle-outline"></ion-icon>Panel de administración</ion-item>
+    
+        <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>      
+        <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
+        <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
+        <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
+        <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
+        <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
+        <ion-item (click)="signOut()" ><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
+      <!-- Agrega más elementos de menú aquí -->      
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Asociados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div >  
+    <ion-list *ngIf="permission">
+      <ion-item id="Lista" *ngFor="let user of users">
+      <ion-avatar slot="start">
+        <img src="../../../assets/fotos/{{user.image}}">
+      </ion-avatar>
+      <ion-label>
+        <h2 >{{user.name}}</h2>
+        <h3>{{user.state}}</h3>
+        <p>{{user.description}}</p>
+      </ion-label>
+    </ion-item>
+    </ion-list>
+  </div>
+  <ion-label *ngIf="!permission">No tienes permisos para ver asociados</ion-label>
+
+   
+    <div class="image2">
+      <img id="img" src="../../../assets/fotos/logo2.png" alt="" width="200">
+    </div>
+</ion-content>
+<ion-footer></ion-footer>
+</div>

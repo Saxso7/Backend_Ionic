@@ -1,0 +1,22 @@
+{
+    "data": [
+    {
+       "name": "Victor Labbe",
+       "state": "Manuel novoa 35, miraflores Viña del mar",
+       "description": "Vivo en la casa  verde que esta en la esqunida de mi  calle ",
+       "image": "user.jpg" 
+    },
+    {
+        "name": "Martin Vera",
+        "state": "Av. Las paltas 23, paradero 21, Quillota",
+        "description": "Vivo donde  las paltas  caen del cielo como hijas en otoño",
+        "image": "user.jpg" 
+     },
+     {
+        "name": "Sebastian Quezada",
+        "state": "Calle Las Glorias Naales, alovio Viña del mar",
+        "description": "Que pasa  choro  pasa las  tillas",
+        "image": "user2.png" 
+     }
+]
+}

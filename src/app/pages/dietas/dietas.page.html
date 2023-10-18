@@ -13,7 +13,6 @@
      
         <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
         <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
-        <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
         <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
         <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
         <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
@@ -30,16 +29,48 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Ubicaciones</ion-title>
+      <ion-title>Dietas</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <div class="text-center"><h2>Nuestros  Gimnasios asociados</h2></div>
-    <!-- Asegúrate de que el contenedor tenga un tamaño fijo -->
-    <div id="map" style="width: 100%; height: 300px;"></div>
-
+    <div class="bienvenidos">
+      <h1>
+        <b>
+          <i>
+            Dietas personalizadas
+          </i>
+        </b>
+      </h1>
+    </div>
+    <div class="bienvenidos">
+      <h4>
+        <i>
+          ¿Cual es tu objetivo?
+        </i>  
+      </h4>
+    </div>
+    
+    <div>
+      <ion-grid class="container2">
+        <ion-row class="btn">
+          <ion-col>
+            <ion-button>Deficit calorico</ion-button>
+          </ion-col>      
+        </ion-row>
+        <ion-row class="btn">
+          <ion-col>
+            <ion-button>Hiper calorico</ion-button>
+          </ion-col> 
+        </ion-row>
+        <ion-row class="btn">
+          <ion-col>
+            <ion-button>Celiacos</ion-button>
+          </ion-col> 
+        </ion-row>
+      </ion-grid>
+    </div>
 
   </ion-content>
-<app-footer></app-footer>
+
 </div>
 

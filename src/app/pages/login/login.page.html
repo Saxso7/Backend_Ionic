@@ -1,11 +1,23 @@
-<ion-content class="custom-content" scrollY="false" scrollX="false">
+<ion-content [fullscreen]="true" >
+<div class="image">
+
 
   <div class="d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
-
+      <div class="titulo">
+        <h1>
+          <b>
+            <i>
+              Energy Vibes
+            </i>   
+          </b>
+        </h1>
+      </div>
+      
       <img src="assets/icon/Energy2.png" alt="Logo de la aplicación">
 
-      <app-custom-input 
+      
+        <app-custom-input 
       icon="mail-sharp" 
       autocomplete="email" 
       [control]="form.controls.email" 
@@ -32,21 +44,23 @@
       
       </div>
 
-      <p routerLink="/forgot-pass">¿Olvidaste tu contraseña?</p>
+      <h6 routerLink="/forgot-pass">¿Olvidaste tu contraseña?</h6>
 
-      <ion-button expand="block"  class="submit" node="ios" type="submit" [disabled]="form.invalid">
+      <ion-button  class="submit" expand="block"  node="ios" type="submit" [disabled]="form.invalid">
         Ingresar
-      </ion-button>
-
-      <ion-button routerLink="/sign-up" routerLinkActive="router-link-active"  class="ion-margin-top" expand="block"   node="ios"  fill="outline">
-        Registrarse
-      </ion-button>
-
-
+      </ion-button>      
+      
     </form>
-
-
   </div>
+</div>
   
 </ion-content>
-
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button routerLink="/sign-up" routerLinkActive="router-link-active"  class="ion-margin-top" expand="block"   node="ios"  >
+        Registrarse
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

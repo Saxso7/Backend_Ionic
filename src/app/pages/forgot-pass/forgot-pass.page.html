@@ -1,6 +1,8 @@
 <app-header></app-header>
-<ion-content class="custom-content" scrollY="false" scrollX="false">
-  <div class="d-flex-center">
+
+  <ion-content [fullscreen]="true">
+    <div class="image">
+    <div class="d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
       <img src="assets/icon/Energy2.png" alt="Logo de la aplicación">
@@ -23,11 +25,7 @@
       <ion-button expand="block"  class="submit" node="ios" type="submit" [disabled]="form.invalid">
         Recuperar 
       </ion-button>
-
-
     </form>
-
-
   </div>
-  
+</div>
 </ion-content>

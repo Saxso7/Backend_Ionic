@@ -29,6 +29,35 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule),canActivate: [AuthGuard]
   },
+  {
+    path: 'asociados',
+    loadChildren: () => import('./pages/asociados/asociados.module').then( m => m.AsociadosPageModule)
+  },
+  {
+    path: 'checkin',
+    loadChildren: () => import('./pages/checkin/checkin.module').then( m => m.CheckinPageModule)
+  },
+  {
+    path: 'pago',
+    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
+  },
+  {
+    path: 'reservas',
+    loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
+  },
+  {
+    path: 'tutoriales',
+    loadChildren: () => import('./pages/tutoriales/tutoriales.module').then( m => m.TutorialesPageModule)
+  },
+  {
+    path: 'dietas',
+    loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule)
+  },
+
+
+
+
+
 ];
 
 @NgModule({
