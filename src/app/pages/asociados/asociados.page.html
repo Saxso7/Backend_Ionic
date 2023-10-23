@@ -35,6 +35,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div><h1 class="bienvenidos">Lista Gimnasios asociados </h1></div>
   <div >  
     <ion-list *ngIf="permission">
       <ion-item id="Lista" *ngFor="let user of users">
@@ -42,9 +43,9 @@
         <img src="../../../assets/fotos/{{user.image}}">
       </ion-avatar>
       <ion-label>
-        <h2 >{{user.name}}</h2>
-        <h3>{{user.state}}</h3>
-        <p>{{user.description}}</p>
+        <h2 >{{user.title}}</h2>
+        <h3>{{user.adress}}</h3>
+        <p>{{user.horario}}</p>
       </ion-label>
     </ion-item>
     </ion-list>
