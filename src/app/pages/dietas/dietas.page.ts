@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 
@@ -9,12 +10,45 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./dietas.page.scss'],
 })
 export class DietasPage implements OnInit {
+  
+  data: any;
 
   constructor() { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);
+  api = inject(ApiService);
+
+  diets: any[];
+  typeDiet: string | null = null;
+  selectedDiet: any = null;
+  expandedDiet: any = null; 
+
+
   ngOnInit() {
+    this.api.getDiet().subscribe((response) => {
+      this.data = response;
+      this.diets = this.data;
+      console.log(this.diets);
+    });
   }
+
+  filterData() {
+    if (this.typeDiet === null) {
+      return [];
+    } else {
+      return this.data.filter((diet) => diet.tipo === this.typeDiet);
+    }
+  }
+
+  showDetails(diet: any) {
+    this.selectedDiet = diet;
+    this.expandedDiet = diet; // Establecer el elemento expandido
+  }
+
+  collapseDetails() {
+    this.expandedDiet = null; // Colapsar la información
+  }
+
   userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
   
 

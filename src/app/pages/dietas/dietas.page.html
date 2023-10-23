@@ -6,18 +6,18 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
-    
+      <ion-item routerLink="/main"><ion-icon name="home"></ion-icon> Inicio</ion-item>
+
       <!-- Mostrar si el usuario es administrador -->
       <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>
-     
-        <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
-        <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
-        <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
-        <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
-        <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
-        <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
-        <ion-item (click)="signOut()" ><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
+
+      <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
+      <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
+      <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
+      <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
+      <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
+      <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
+      <ion-item (click)="signOut()"><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
       <!-- Agrega más elementos de menú aquí -->
     </ion-list>
   </ion-content>
@@ -33,44 +33,42 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <div class="bienvenidos">
-      <h1>
-        <b>
-          <i>
-            Dietas personalizadas
-          </i>
-        </b>
-      </h1>
-    </div>
-    <div class="bienvenidos">
-      <h4>
-        <i>
-          ¿Cual es tu objetivo?
-        </i>  
-      </h4>
-    </div>
-    
-    <div>
+
+    <<ion-content>
       <ion-grid class="container2">
         <ion-row class="btn">
           <ion-col>
-            <ion-button>Deficit calorico</ion-button>
-          </ion-col>      
+            <ion-button (click)="typeDiet = 'Deficit calorico'">Deficit calorico</ion-button>
+          </ion-col>
         </ion-row>
         <ion-row class="btn">
           <ion-col>
-            <ion-button>Hiper calorico</ion-button>
-          </ion-col> 
+            <ion-button (click)="typeDiet = 'Hiper calorica'">Hiper calorica</ion-button>
+          </ion-col>
         </ion-row>
         <ion-row class="btn">
           <ion-col>
-            <ion-button>Celiacos</ion-button>
-          </ion-col> 
+            <ion-button (click)="typeDiet = 'Celiacos'">Celiacos</ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
+      
+      <ion-list>
+        <ion-item *ngFor="let diet of diets">
+          <ion-label *ngIf="diet.tipo === typeDiet">
+            <h2>{{ diet.contenido }}</h2>
+            <p>ID: {{ diet.id }}</p>
+            <p>Periodo: {{ diet.periodo }}</p>
+            <p>Tipo: {{ diet.tipo }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    
+    
+
+
 
   </ion-content>
 
 </div>
-

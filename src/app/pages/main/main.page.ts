@@ -25,7 +25,7 @@ export class MainPage implements OnInit {
 
 
   ngOnInit() {
-    this.api.getData().subscribe((response) => {
+    this.api.getUser().subscribe((response) => {
       this.data = response;
       this.users = this.data;
       console.log(this.users);

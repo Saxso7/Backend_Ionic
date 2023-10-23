@@ -31,7 +31,7 @@ export class SignUpPage implements OnInit {
   
   enviarDatos() {
     const formData = this.form.getRawValue(); // Obtiene un objeto plano con los valores del formulario
-    this.apiService.postData(formData).subscribe(response => {
+    this.apiService.postUser(formData).subscribe(response => {
       console.log('Respuesta de la API:', response);
       // Realiza cualquier acción necesaria con la respuesta
     }, error => {

@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiPost = 'https://api.seyka.online/user/user/post';
-  private apiGet = 'https://api.seyka.online/user/user';
+  private apiPostUser = 'https://api.seyka.online/user/post';
+  private apiGetUser = 'https://api.seyka.online/user';
+  private apiGetDiet = 'hhttps://api.seyka.online/diet';
 
   constructor(private http: HttpClient) {}
 
@@ -26,25 +27,52 @@ export class ApiService {
     return headers;
   }
 
-  
-  getData() {
+  getDiet(){
     // Obtiene los encabezados que incluyen el token JWT
     const headers = this.getHeaders();
     console.log(headers)
     // Realiza una solicitud GET a la API con los encabezados
-    //return this.http.get(this.apiGet);
-    return this.http.get(`${this.apiGet}/get`, { headers });
+    //return this.http.get(this.apiGetUser);
+    return this.http.get(`${this.apiGetDiet}/get`, { headers });
+  }
+
+  getUser() {
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    //return this.http.get(this.apiGetUser);
+    return this.http.get(`${this.apiGetUser}/get`, { headers });
     
   }
 
   // Realiza una solicitud POST con el token JWT incluido
-  postData(form: any) {
+  postUser(form: any) {
     // Obtiene los encabezados que incluyen el token JWT
     const headers = this.getHeaders();
 
     // Realiza una solicitud POST a la API con los encabezados
-    return this.http.post(this.apiPost, form, { headers });
+    return this.http.post(this.apiPostUser, form, { headers });
   }
+
+  // Actualizar un usuario existente
+  updateUser(userId: string, userData: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(`${this.apiGetUser}/put/${userId}`, userData, { headers });
+  }
+
+  // Eliminar un usuario
+  deleteUser(userId: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete(`${this.apiGetUser}/delete/${userId}`, { headers });
+  }
+
+  // Buscar un usuario por ID
+  getUserById(userId: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${this.apiGetUser}/get/${userId}`, { headers });
+  }
+
 
   
 }
