@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api.service';
 
 
 
@@ -12,7 +13,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./asociados.page.scss'],
 })
 export class AsociadosPage implements OnInit {
-  users: any = [];
+  data: any;
+  gyms: any = [];
   permission: boolean = false
 
   constructor(    
@@ -20,16 +22,18 @@ export class AsociadosPage implements OnInit {
   ) { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);
+  api = inject(ApiService);
 
 
   ngOnInit() {
     this.permission = true;
-    console.log("Holaaaa")
-    this.getUsers().subscribe(res=>{
-      console.log("Res", res)
-      this.users = res;
-    }
-    );
+    this.api.getGym().subscribe((response) => {
+      this.data = response;
+      this.gyms = this.data;
+      console.log(this.gyms);
+    });
+    
+    
 
 
   }

@@ -9,10 +9,35 @@ import { Router } from '@angular/router';
 })
 export class FirebaseService {
 
+  private inactivityTimer: any;
+  private inactivityDuration: number = 600000; 
+
   auth = inject(AngularFireAuth);
   router = inject(Router);
 
-  constructor() { }
+  constructor() {
+    this.initializeInactivityTimer();
+  }
+
+  // Método para inicializar el temporizador de inactividad
+  private initializeInactivityTimer() {
+    this.resetInactivityTimer();
+    window.addEventListener('mousemove', () => this.resetInactivityTimer());
+    window.addEventListener('keydown', () => this.resetInactivityTimer());
+  }
+
+  // Método para reiniciar el temporizador de inactividad
+  private resetInactivityTimer() {
+    clearTimeout(this.inactivityTimer);
+    this.inactivityTimer = setTimeout(() => {
+      // Eliminar el token del localStorage
+      localStorage.removeItem('userToken');
+      // Redirigir al usuario al inicio de sesión
+      this.router.navigate(['/login']); // Cambia '/login' por la ruta de inicio de sesión
+    }, this.inactivityDuration);
+  }
+
+
 
   // Obtener la instancia de autenticación de Firebase
   getAuth() {

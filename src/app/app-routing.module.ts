@@ -31,28 +31,32 @@ const routes: Routes = [
   },
   {
     path: 'asociados',
-    loadChildren: () => import('./pages/asociados/asociados.module').then( m => m.AsociadosPageModule)
+    loadChildren: () => import('./pages/asociados/asociados.module').then( m => m.AsociadosPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'checkin',
-    loadChildren: () => import('./pages/checkin/checkin.module').then( m => m.CheckinPageModule)
+    loadChildren: () => import('./pages/checkin/checkin.module').then( m => m.CheckinPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'pago',
-    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
+    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'reservas',
-    loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule)
+    loadChildren: () => import('./pages/reservas/reservas.module').then( m => m.ReservasPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'tutoriales',
-    loadChildren: () => import('./pages/tutoriales/tutoriales.module').then( m => m.TutorialesPageModule)
+    loadChildren: () => import('./pages/tutoriales/tutoriales.module').then( m => m.TutorialesPageModule),canActivate:[AuthGuard]
   },
   {
     path: 'dietas',
-    loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule)
+    loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule),canActivate:[AuthGuard]
+  },  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
+
 
 
 

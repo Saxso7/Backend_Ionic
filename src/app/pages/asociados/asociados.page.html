@@ -38,14 +38,11 @@
   <div><h1 class="bienvenidos">Lista Gimnasios asociados </h1></div>
   <div >  
     <ion-list *ngIf="permission">
-      <ion-item id="Lista" *ngFor="let user of users">
-      <ion-avatar slot="start">
-        <img src="../../../assets/fotos/{{user.image}}">
-      </ion-avatar>
+      <ion-item id="Lista" *ngFor="let gym of gyms">
       <ion-label>
-        <h2 >{{user.title}}</h2>
-        <h3>{{user.adress}}</h3>
-        <p>{{user.horario}}</p>
+        <h2 >{{gym.nombre}}</h2>
+        <h3>{{gym.direccion}}</h3>
+        <p>{{gym.horario}}</p>
       </ion-label>
     </ion-item>
     </ion-list>

@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiPostUser = 'https://api.seyka.online/user/post';
-  private apiGetUser = 'https://api.seyka.online/user';
-  private apiGetDiet = 'hhttps://api.seyka.online/diet';
+  private apiPostUser = 'http://127.0.0.1:5000/user/post';
+  private apiGetUser = 'http://127.0.0.1:5000/user';
+  private apiGetDiet = 'http://127.0.0.1:5000/diet';
+  private apiGetGymAss = 'http://127.0.0.1:5000/gym';
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +27,14 @@ export class ApiService {
 
     return headers;
   }
-
+  
+  getGym(){
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    return this.http.get(`${this.apiGetGymAss}/get`, { headers });
+  }
   getDiet(){
     // Obtiene los encabezados que incluyen el token JWT
     const headers = this.getHeaders();
