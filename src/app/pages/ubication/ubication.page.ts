@@ -23,13 +23,17 @@ export class UbicationPage implements OnInit {
   router = inject(Router);
   api = inject(ApiService);
 
-  ngOnInit() {
-    this.initMap();
+  async ngOnInit() {
+    await this.addMarkersToMap(this.marcador);
     this.api.getGym().subscribe((response) => {
       this.data = response;
       this.marcador = this.data;
       console.log(this.marcador);
     });
+    // Espera a que se agreguen los marcadores antes de continuar
+    
+
+    this.initMap();
 
   }
   userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
@@ -74,21 +78,26 @@ export class UbicationPage implements OnInit {
   }
 
   
-  addMarkersToMap(marcador){
-    for (let marker of marcador ){
-      let position = new google.maps.LatLng(parseFloat(marker.latitud), parseFloat(marker.longitud));
-      let mapMarker = new google.maps.Marker({
-        position: position,
-        nombre: marker.nombre,
-        latitud: marker.latitud,
-        longitud: marker.longitud,
-        direccion: marker.direccion,
-        horario: marker.horario
-      });
-      mapMarker.setMap(this.map);
-      this.addInfoWindowToMarker(mapMarker)
-    }
+  addMarkersToMap(marcador): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      for (let marker of marcador) {
+        let position = new google.maps.LatLng(parseFloat(marker.latitud), parseFloat(marker.longitud));
+        let mapMarker = new google.maps.Marker({
+          position: position,
+          nombre: marker.nombre,
+          latitud: marker.latitud,
+          longitud: marker.longitud,
+          direccion: marker.direccion,
+          horario: marker.horario
+        });
+        mapMarker.setMap(this.map);
+        this.addInfoWindowToMarker(mapMarker);
+      }
+      resolve(); // Resuelve la promesa una vez que todos los marcadores se han agregado.
+    });
   }
+
+
   addInfoWindowToMarker(marker) {
     let infoWindowContent = '<div id="content" class="info-window">' +
       '<h2 id="firstHeading" class="firstHeading">' + marker.nombre + '</h2>' +

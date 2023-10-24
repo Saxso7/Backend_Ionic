@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiPostUser = 'https://api.seyka.online/user/post';
-  private apiGetUser = 'https://api.seyka.online/user';
-  private apiGetDiet = 'https://api.seyka.online/diet';
-  private apiGetGymAss = 'https://api.seyka.online/gym';
+  private apiPostUser = 'http://127.0.0.1:5000/user/post';
+  private apiGetUser = 'http://127.0.0.1:5000/user';
+  private apiGetDiet = 'http://127.0.0.1:5000/diet';
+  private apiGetGymAss = 'http://127.0.0.1:5000/gym';
 
   constructor(private http: HttpClient) {}
 
