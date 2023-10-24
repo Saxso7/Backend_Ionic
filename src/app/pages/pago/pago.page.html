@@ -25,14 +25,44 @@
 
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar>        
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+        <ion-back-button defaultHref="/main"></ion-back-button>
       </ion-buttons>
       <ion-title>Pagos</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
+    <ion-toolbar>
+      <ion-title class="text-center">
+       Nuesotros productos
+      </ion-title>
+    </ion-toolbar> 
+
+    <ion-card>
+      <ion-list >
+        <ion-item id="Lista" *ngFor="let producto of productos">
+          <ion-thumbnail slot="start">
+           <img src="../../assets/icon/{{producto.image}}">
+          </ion-thumbnail>    
+        
+           <ion-label>
+          <h2 >{{producto.name}}</h2>          
+          <p>{{producto.description}}</p>
+          <h2 > ${{producto.valor}}</h2>
+          <ion-button (click)="createPayPalOrder(producto.valor)">Comprar</ion-button>          
+        </ion-label>        
+      </ion-item>
+      </ion-list> 
+        </ion-card>      
+        
+    
+     
+      <div class="image2">
+        <img id="img" src="../../assets/productos/lista.json" alt="" width="200">  
+      </div>
+     <div id="paypal-button-container"></div>
+     
 
 
   </ion-content>

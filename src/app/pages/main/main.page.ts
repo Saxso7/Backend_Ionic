@@ -3,6 +3,9 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
+
 
 
 @Component({
@@ -13,7 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class MainPage implements OnInit {
   data: any;
   
-
+  private afAuth: AngularFireAuth
   firebaseServ = inject(FirebaseService);
   utilsServ = inject(UtilsService);
   router = inject(Router);
@@ -75,11 +78,15 @@ export class MainPage implements OnInit {
 
     localStorage.removeItem('userEmail');
     
-    // Llamar al método de signOut de Firebase si es necesario
-    this.firebaseServ.signOut();
-    
-    // Navegar a la página de inicio
-    this.router.navigate(['/']);
+    this.afAuth.signOut().then(() => {
+      // Cierre de sesión exitoso
+      console.log('Sesión cerrada correctamente.');
+      // Navegar a la página de inicio o a donde desees después del cierre de sesión
+      this.router.navigate(['/login']); // Reemplaza 'login' con la ruta de tu página de inicio de sesión
+    }).catch((error) => {
+      console.error('Error al cerrar sesión: ', error);
+    });
+  }
   }
 
-}
+

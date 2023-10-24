@@ -1,0 +1,17 @@
+.pago {
+    background-color: #007bff; /* Cambia el color de fondo según tu preferencia */
+    color: #fff; /* Cambia el color del texto si es necesario */
+    padding: 10px 20px; /* Ajusta el relleno según tus necesidades */
+    border: none; /* Quita el borde si no es necesario */
+    border-radius: 5px; /* Agrega bordes redondeados si deseas */
+    cursor: pointer;
+  }
+  .text-center{
+    text-align: center;
+  }
+  #list{
+    text-align: center;
+    position: absolute; 
+    top: 10px;  
+    transform: translateY(-50%);
+}

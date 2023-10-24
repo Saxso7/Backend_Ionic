@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 
 
+
 @Component({
   selector: 'app-asociados',
   templateUrl: './asociados.page.html',
@@ -18,7 +19,8 @@ export class AsociadosPage implements OnInit {
   permission: boolean = false
 
   constructor(    
-    private http: HttpClient
+    private http: HttpClient,
+    
   ) { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);

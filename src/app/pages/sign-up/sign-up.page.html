@@ -1,4 +1,7 @@
 <app-header></app-header>
+<ion-buttons slot="start">
+  <ion-back-button defaultHref="/main"></ion-back-button>
+</ion-buttons>
 <ion-content class="custom-content ion-padding" scrollY="false" scrollX="false" [fullscreen]="true">
   <div class="d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
