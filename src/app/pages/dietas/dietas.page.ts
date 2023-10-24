@@ -36,7 +36,7 @@ export class DietasPage implements OnInit {
     if (this.typeDiet === null) {
       return [];
     } else {
-      return this.data.filter((diet) => diet.tipo === this.typeDiet);
+      return this.diets.filter((diet) => diet.tipo === this.typeDiet);
     }
   }
 

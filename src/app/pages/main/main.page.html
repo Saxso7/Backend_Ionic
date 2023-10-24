@@ -6,23 +6,23 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-    
+
       <!-- Mostrar si el usuario es administrador -->
       <ion-item *ngIf="isUserAdmin()" routerLink="/admin">
         <ion-icon name="person-circle-outline"></ion-icon>
         Panel de administración</ion-item>
-    
-        <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
-        <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
-        <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
-        <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
-        <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
-        <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
-        <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
-        <ion-item (click)="signOut()" ><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
+
+      <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
+      <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
+      <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
+      <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
+      <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
+      <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
+      <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
+      <ion-item (click)="signOut()"><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
       <!-- Agrega más elementos de menú aquí -->
-      
-      
+
+
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -40,89 +40,99 @@
   <ion-content>
     <div class="bienvenidos">
       <h1>
-       <b>
-         <i>
-           Bienvenidos
-         </i>
-       </b>
+        <b>
+          <i>
+            Bienvenidos
+          </i>
+        </b>
       </h1>
       <h1>
-       <b>
-         <i>
-           A
-         </i>
-       </b>
+        <b>
+          <i>
+            A
+          </i>
+        </b>
       </h1>
-       <h1>
-         <b>
-           <i>
-             Energy Vibes
-           </i>
-         </b>
-       </h1>    
-       
-     </div>
-     
-       <ion-grid>
-         <ion-row>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/reservas']"class="btn">
-                 <ion-icon slot="start" name="calendar"></ion-icon><br> Reservas</button>
-             </div>
-           </ion-col>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/checkin']"class="btn">
-                 <ion-icon slot="start" name="walk-outline"></ion-icon><br> Check-in</button>
-             </div>
-           </ion-col>
-         </ion-row>
-         <ion-row>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/dietas']"class="btn">
-                 <ion-icon slot="start" name="fast-food"></ion-icon> <br> Opciones de Dietas</button>
-             </div>
-           </ion-col>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/pago']"class="btn">
-                 <ion-icon slot="start" name="card"></ion-icon><br>Forma de Pagos</button>
-             </div>
-           </ion-col>
-         </ion-row>
-         <ion-row>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/tutoriales']"class="btn">
-                 <ion-icon slot="start" name="videocam"></ion-icon> <br><br>Tutoriales <br></button>
-             </div>
-           </ion-col>
-           <ion-col>
-             <div id="container2">
-               <button ion-button [routerLink]="['/asociados']"class="btn">
-                 <ion-icon slot="start" name="people"></ion-icon> <br>Gym Asociados</button>
-             </div>
-           </ion-col>
-         </ion-row>    
-         <ion-row>
-          <ion-col>
-            <div id="container2">
-              <button ion-button [routerLink]="['/ubication']"class="btn">
-                <ion-icon slot="start" name="videocam"></ion-icon><br> Maps</button>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div id="container2">
-              <button ion-button [routerLink]="['/asociados']"class="btn">
-                <ion-icon slot="start" name="people"></ion-icon><br> otros</button>
-            </div>
-          </ion-col>
-        </ion-row>  
-       </ion-grid>
-  
-  </ion-content>
-<app-footer></app-footer>
-</div>
+      <h1>
+        <b>
+          <i>
+            Energy Vibes
+          </i>
+        </b>
+      </h1>
 
+    </div>
+    <ion-grid *ngIf="isUserAdmin()">
+      <ion-row>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/admin']" class="btn" *ngIf="isUserAdmin()">
+              <ion-icon name="home-outline"></ion-icon> Administrador
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/reservas']" class="btn">
+              <ion-icon slot="start" name="calendar"></ion-icon><br> Reservas</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/checkin']" class="btn">
+              <ion-icon slot="start" name="walk-outline"></ion-icon><br> Check-in</button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/dietas']" class="btn">
+              <ion-icon slot="start" name="fast-food"></ion-icon> <br> Opciones de Dietas</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/pago']" class="btn">
+              <ion-icon slot="start" name="card"></ion-icon><br>Forma de Pagos</button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/tutoriales']" class="btn">
+              <ion-icon slot="start" name="videocam"></ion-icon> <br><br>Tutoriales <br></button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/asociados']" class="btn">
+              <ion-icon slot="start" name="people"></ion-icon> <br>Gym Asociados</button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/ubication']" class="btn">
+              <ion-icon slot="start" name="videocam"></ion-icon><br> Maps</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div id="container2">
+            <button ion-button [routerLink]="['/asociados']" class="btn">
+              <ion-icon slot="start" name="people"></ion-icon><br> otros</button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-content>
+  <app-footer></app-footer>
+</div>

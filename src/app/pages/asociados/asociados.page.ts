@@ -58,15 +58,6 @@ export class AsociadosPage implements OnInit {
       this.router.navigate(['/main']);
     }, 400); // 300 milisegundos (ajusta este valor según tus necesidades)
   }
-  getUsers(){
-    return this.http
-    .get("assets/files/asociados.json")
-    .pipe(
-      map((res:any) =>{
-        return res.data;
-      })
-    )
-  }
 
 
 
