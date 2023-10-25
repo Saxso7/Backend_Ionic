@@ -3,24 +3,23 @@
     {
        "name": "Plan Inicial",
        "state": "9 seciones",
-       "description": "Consta de 9 seciones al mes y puedes  ir a todos los  gym del pais",
+       "description": " 9 seciones  ",
        "image": "1.png",
        "valor": 0.01
     },
     {
         "name": "Plan Medio",
         "state": "12 seciones",
-        "description": "Consta de 12 seciones al mes y puedes  ir a todos los  gym del pais",
+        "description": "12 seciones ",
         "image": "2.png",
         "valor":  0.02
      },
      {
         "name": "plan Full",
         "state": "30 seciones",
-        "description": "Consta de 30 seciones al mes y puedes  ir a todos los  gym del pais",
+        "description": " 30 seciones ",
         "image": "3.png",
         "valor": 0.03
-
      }
 ]
 }

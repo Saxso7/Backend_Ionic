@@ -1,16 +1,16 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="mycolor">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+    
     <ion-list>
       <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
     
       <!-- Mostrar si el usuario es administrador -->
-      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>
-     
+        <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>     
         <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
         <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
         <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
@@ -21,50 +21,67 @@
       <!-- Agrega más elementos de menú aquí -->
     </ion-list>
   </ion-content>
+
+
 </ion-menu>
 
+  
 <div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>        
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/main"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Pagos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-toolbar>
-      <ion-title class="text-center">
-       Nuesotros productos
-      </ion-title>
-    </ion-toolbar> 
-
-    <ion-card>
-      <ion-list >
-        <ion-item id="Lista" *ngFor="let producto of productos">
-          <ion-thumbnail slot="start">
-           <img src="../../assets/icon/{{producto.image}}">
-          </ion-thumbnail>    
+      <ion-header>
+        <ion-toolbar color="mycolor">        
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main"></ion-back-button>
+          </ion-buttons>
+          <ion-title>Pagos</ion-title>
+        </ion-toolbar>
         
-           <ion-label>
-          <h2 >{{producto.name}}</h2>          
-          <p>{{producto.description}}</p>
-          <h2 > ${{producto.valor}}</h2>
-          <ion-button (click)="createPayPalOrder(producto.valor)">Comprar</ion-button>          
-        </ion-label>        
-      </ion-item>
-      </ion-list> 
-        </ion-card>      
-        
+      </ion-header>
+      <ion-content>
+        <div id="paypal-button-container"></div> 
+      <div class="image"> 
+        <div class="text-center2">
+          <h1>
+            <i>
+              Nuestros productos
+            </i>
+          </h1> 
+        </div>
+          
+       
+        <ion-card >
+        <ion-list class="cardTransp" >
+          <ion-item id="Lista" *ngFor="let producto of productos">
+            <ion-thumbnail slot="start">
+            <img src="../../assets/icon/{{producto.image}}">
+            </ion-thumbnail>    
+          
+            <ion-label >
+            <h2 >{{producto.name}}</h2>          
+            <p>{{producto.description}}</p>
+            <h2 > ${{producto.valor}}</h2>
+            <ion-button (click)="createPayPalOrder(producto.valor)">Comprar</ion-button>          
+            </ion-label>        
+          </ion-item>           
+        </ion-list>   
+      </ion-card>  
+      
+      
     
-     
+          
+          
       <div class="image2">
         <img id="img" src="../../assets/productos/lista.json" alt="" width="200">  
       </div>
-     <div id="paypal-button-container"></div>
-     
-
-
+    
+  <div class="text-center">
+        <h6>
+          <i>
+            Todos nuestros productos tienen una diracion de 30 días.
+          </i>
+        </h6> 
+      </div>
+    </div>
+  
   </ion-content>
 
 </div>

@@ -1,6 +1,6 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="mycolor">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -12,7 +12,7 @@
         <ion-icon name="person-circle-outline"></ion-icon>
         Panel de administración</ion-item>
 
-      <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
+      <ion-item color="mycolor" routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
       <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
       <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
       <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
@@ -29,39 +29,18 @@
 
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="mycolor">
       <ion-buttons slot="end">
         <ion-button (click)="signOut()"><ion-icon name="log-in"></ion-icon> </ion-button>
       </ion-buttons>
-      <ion-title>Energy Vibes APP</ion-title>
+      <ion-title class="bienvenidos" ><i>Energy Vibes</i></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <div class="bienvenidos">
-      <h1>
-        <b>
-          <i>
-            Bienvenidos
-          </i>
-        </b>
-      </h1>
-      <h1>
-        <b>
-          <i>
-            A
-          </i>
-        </b>
-      </h1>
-      <h1>
-        <b>
-          <i>
-            Energy Vibes
-          </i>
-        </b>
-      </h1>
-
-    </div>
+    
+    <div class="image">
+    <div class="">
     <ion-grid *ngIf="isUserAdmin()">
       <ion-row>
         <ion-col>
@@ -74,7 +53,8 @@
       </ion-row>
     </ion-grid>
 
-    <ion-grid>
+    <ion-grid  ><img class="logo" src="assets/fotos/logo2.png" alt="Logo de la aplicación" width="200">
+    
       <ion-row>
         <ion-col>
           <div id="container2">
@@ -132,7 +112,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
+  </div>
+  </div>
   </ion-content>
   <app-footer></app-footer>
 </div>

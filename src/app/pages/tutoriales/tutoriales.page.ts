@@ -14,10 +14,12 @@ export class TutorialesPage implements OnInit {
   selectedOption: any = ''; // Define la propiedad selectedOption
 
   videoUrl: string[] = [
-    "https://www.youtube.com/embed/EWcHFVxJPKg",
-    "https://www.youtube.com/embed/zNDD4EbjORs",
-    "https://www.youtube.com/embed/p4bwCz_CSVI",
-    "https://www.youtube.com/embed/NFH358gXP28",    
+     
+      "https://www.youtube.com/embed/7KL8SgCP4KQ",
+      "https://www.youtube.com/embed/7vhB8FbnIPA",
+      "https://www.youtube.com/embed/TEwNFhOGfFQ",
+      "https://www.youtube.com/embed/vQog8QGt1BE", 
+    
     
   ];
 

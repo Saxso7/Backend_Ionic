@@ -1,6 +1,6 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="mycolor">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -25,7 +25,7 @@
 
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="mycolor">
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/main"></ion-back-button>
       </ion-buttons>
@@ -33,35 +33,39 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <div>
-      <h2 class="text-center">
-        Video Tutoriales de ejercicos para ti 
-      </h2>
+    <div class="image">   
+    <div class="text-center">
+      <h1 >
+        <i>
+        Video Tutoriales de ejercicos para ti
+        </i>         
+      </h1>
     </div>
-    <ion-list>
-      <ion-item class="select">
+    <ion-list class="select">
+      <ion-item >
         <ion-select [(ngModel)]="selectedOption" label="Seleccione una opción" label-placement="floating">
-          <ion-select-option value="1">Déficit Calórico</ion-select-option>
-          <ion-select-option value="2">Hiper Calórico</ion-select-option>
-          <ion-select-option value="3">Celiacos</ion-select-option>
-          <ion-select-option value="4">Otros</ion-select-option>
+          <ion-select-option value="1">Entrenamiento con pesas</ion-select-option>
+          <ion-select-option value="2">Entrenamiento de alta intensidad</ion-select-option>
+          <ion-select-option value="3">Clases grupales</ion-select-option>
+          <ion-select-option value="4">Entrenamiento en circuito</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
-    <div class="text-center">
-      <ion-title >Videos para ayudar tu crecimiento</ion-title>
+    
+    <div class="video-pos">
+      <iframe *ngIf="selectedOption" [src]="videoTutorial(videoUrl[selectedOption - 1])" width="100%" height="50%"></iframe>
     </div>
   
-  
-    <!-- Mostrar el iframe del video si hay una opción seleccionada -->
-    <iframe *ngIf="selectedOption" [src]="videoTutorial(videoUrl[selectedOption - 1])" width="100%" height="50%"></iframe>
-    <br>
-  
-    <!-- Resto de tus iframes... -->
-  
-    <img src="assets/icon/Energy2.png" alt="Logo de la aplicación" width="250" class="image2">
-
-
+    
+    <br>   
+    <div class="text-center2">
+      <h6>
+        <i>
+          Videos para ayudarte en tu Entrenamiento
+      </i>
+    </h6>
+    </div>
+  </div>
   </ion-content>
 
 </div>

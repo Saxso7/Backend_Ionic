@@ -8,10 +8,49 @@
   }
   .text-center{
     text-align: center;
+    position: absolute;
+    top: 80%;
+    padding-left: 65px;
+    padding-right: 65px;
+  }
+  .text-center2{
+    text-align: center;
+    position: absolute;
+    top: 10%;
+    padding-top: 10px;
+    
   }
   #list{
     text-align: center;
     position: absolute; 
     top: 10px;  
     transform: translateY(-50%);
+}
+ion-toolbar{
+    background-color: var(--ion-color-mycolor);
+}
+
+.image{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  letter-spacing: 5px;
+  font-size: 3rem;
+  background-position: center;
+  background-size: cover;
+  background-image: linear-gradient(to right,  transparent, rgba(180, 182, 184, 0.409) ),
+   url("../../../assets/fotos/levantamiento.jpg");
+}
+.cardTransp{
+  position: relative;
+  background-color: rgba(255, 255, 1255, 0.1);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.322);
+  height: 400px;
+  width: 270px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  bottom: 20%;
 }
