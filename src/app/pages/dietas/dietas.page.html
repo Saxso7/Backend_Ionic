@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content">
+<ion-menu  contentId="main-content">
   <ion-header>
     <ion-toolbar color="mycolor">
       <ion-title>Menu</ion-title>
@@ -6,18 +6,18 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item routerLink="/main"><ion-icon name="home"></ion-icon> Inicio</ion-item>
-
+      <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
+    
       <!-- Mostrar si el usuario es administrador -->
       <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>
-
-      <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
-      <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
-      <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
-      <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
-      <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
-      <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
-      <ion-item (click)="signOut()"><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
+     
+        <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
+        <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
+        <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
+        <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
+        <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
+        <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
+        <ion-item (click)="signOut()" ><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
       <!-- Agrega más elementos de menú aquí -->
     </ion-list>
   </ion-content>
@@ -32,43 +32,66 @@
       <ion-title>Dietas</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
 
-    <ion-content>
-      <ion-grid class="container2">
-        <ion-row class="btn">
-          <ion-col>
-            <ion-button (click)="typeDiet = 'Deficit calorico'">Deficit calorico</ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row class="btn">
-          <ion-col>
-            <ion-button (click)="typeDiet = 'Hiper calorica'">Hiper calorica</ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row class="btn">
-          <ion-col>
-            <ion-button (click)="typeDiet = 'Celiacos'">Celiacos</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      
-      <ion-list *ngFor="let diet of diets">
-        <ion-item  *ngIf="diet.tipo === typeDiet">
-          <ion-label>
-            <h4>Tipo: {{ diet.tipo }}</h4>
-            <p>Contenido: {{ diet.contenido }}</p>
-            <p>Periodo: {{ diet.periodo }}</p>
+  <ion-content>
+    <div class="image">
+      <div class="text-center">
+        <h1>Opciones de Dietas para tu entrenamiento</h1>
+      </div>
+      <ion-list>
+        
+      </ion-list>
+      <ion-item class="select">
+        <ion-list >
+          <ion-select [(ngModel)]="seleccionOpcion" label="Opciones" (ionChange)="seleccionarDieta()">
+            <ion-select-option *ngFor="let opcion of opcionesDietas" [value]="opcion">
+              {{ opcion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-list>
+      </ion-item>
+
+      <ion-list class="video-pos">
+        <ion-item *ngIf="dietaSeleccionada" aria-label="Favorita dieta" value="Opciones">
+          <ion-label class="dietas">
+            <h1>{{dietaSeleccionada.state}}</h1>
+            <h2>{{dietaSeleccionada.desayuno}}</h2> 
+            <p>{{dietaSeleccionada.nombreDesayuno}}</p> 
+            <h6>{{dietaSeleccionada.descriptionDesayuno}}</h6>     
+            <p>{{dietaSeleccionada.description}}</p>
+            <h2>{{dietaSeleccionada.almuerzo}}</h2>
+            <p>{{dietaSeleccionada.nombreAlmuerzo}}</p>
+            <p>{{dietaSeleccionada.descripcionAlmuerzo}}</p>
+            <h2>{{dietaSeleccionada.meriendaTarde}}</h2> 
+            <p>{{dietaSeleccionada.nombreMeriendaTarde}}</p>
+            <p>{{dietaSeleccionada.descripcionMeriendaTarde}}</p>
+            <h2>{{dietaSeleccionada.cena}}</h2>
+            <p>{{dietaSeleccionada.nombreCena}}</p>
+            <p>{{dietaSeleccionada.descipcionCena}}</p>
+            <h2>{{dietaSeleccionada.meriendaNocturna}}</h2>
+            <p>{{dietaSeleccionada.nombreMeriendaNocturna}}</p>
+            <p>{{dietaSeleccionada.descripcionMeriendaNocturna}}</p>
+            <br>
+            <h1>{{dietaSeleccionada.state2}}</h1>
+            <h2>{{dietaSeleccionada.desayuno2}}</h2> 
+            <p>{{dietaSeleccionada.nombreDesayuno2}}</p> 
+            <p>{{dietaSeleccionada.descriptionDesayuno2}}</p>     
+            <p>{{dietaSeleccionada.description2}}</p>
+            <h2>{{dietaSeleccionada.almuerzo2}}</h2>
+            <p>{{dietaSeleccionada.nombreAlmuerzo2}}</p>
+            <p>{{dietaSeleccionada.descripcionAlmuerzo2}}</p>
+            <h2>{{dietaSeleccionada.meriendaTarde2}}</h2> 
+            <p>{{dietaSeleccionada.nombreMeriendaTarde2}}</p>
+            <p>{{dietaSeleccionada.descripcionMeriendaTarde2}}</p>
+            <h2>{{dietaSeleccionada.cena2}}</h2>
+            <p>{{dietaSeleccionada.nombreCena2}}</p>
+            <p>{{dietaSeleccionada.descipcionCena2}}</p>
+            <h2>{{dietaSeleccionada.meriendaNocturna2}}</h2>
+            <p>{{dietaSeleccionada.nombreMeriendaNocturna2}}</p>
+            <p>{{dietaSeleccionada.descripcionMeriendaNocturna2}}</p>        
           </ion-label>
         </ion-item>
       </ion-list>
-      
-    </ion-content>
-    
-    
-
-
-
+    </div>
   </ion-content>
-
 </div>

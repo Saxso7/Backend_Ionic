@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content">
+<ion-menu  contentId="main-content">
   <ion-header>
     <ion-toolbar color="mycolor">
       <ion-title>Menu</ion-title>
@@ -32,7 +32,7 @@
       <ion-title>Tutoriales</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
+  <ion-content >
     <div class="image">   
     <div class="text-center">
       <h1 >
@@ -41,9 +41,10 @@
         </i>         
       </h1>
     </div>
+    
     <ion-list class="select">
       <ion-item >
-        <ion-select [(ngModel)]="selectedOption" label="Seleccione una opción" label-placement="floating">
+        <ion-select [(ngModel)]="selectedOption" label="Seleccione una opción">
           <ion-select-option value="1">Entrenamiento con pesas</ion-select-option>
           <ion-select-option value="2">Entrenamiento de alta intensidad</ion-select-option>
           <ion-select-option value="3">Clases grupales</ion-select-option>
