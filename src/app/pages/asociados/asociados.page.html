@@ -31,14 +31,14 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/main"></ion-back-button>
       </ion-buttons>
-      <ion-title>Asociados</ion-title>
+      <ion-title class="centrar">iGimnasios Asociados</ion-title>
     </ion-toolbar>
     
   
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div><h1 class="bienvenidos">Lista Gimnasios asociados </h1></div>
+  <div><h1 class="bienvenidos"><i>Lista Gimnasios asociados</i> </h1></div>
   <div >  
     <ion-list *ngIf="permission">
       <ion-item id="Lista" *ngFor="let gym of gyms">

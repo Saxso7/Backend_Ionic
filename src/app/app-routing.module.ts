@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { LoadingComponent } from './loading/loading.component';
 
 const routes: Routes = [
+  { 
+    path: 'loading',
+    component: LoadingComponent,
+  },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'loading',
     pathMatch: 'full'
   },
   {
@@ -52,7 +57,8 @@ const routes: Routes = [
   {
     path: 'dietas',
     loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule),canActivate:[AuthGuard]
-  },  {
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
