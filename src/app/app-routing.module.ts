@@ -5,13 +5,10 @@ import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
-  { 
-    path: 'loading',
-    component: LoadingComponent,
-  },
+ 
   {
     path: '',
-    redirectTo: 'loading',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
