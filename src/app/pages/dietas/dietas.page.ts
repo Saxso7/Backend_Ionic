@@ -18,6 +18,10 @@ export class DietasPage implements OnInit {
   dietasRes: any = { };
   dietaSeleccionada: KeyValue<string, any>; 
   data: any;
+  dataDietCard: any;
+  dataDietHigh: any;
+  dataDietWeight: any;
+  combinedData: any = { "Entrenamiento de resistencia": {}, "Entrenamiento cardiovascular": {}, "Entrenamiento de alta intensidad (HIIT, CrossFit)": {}, "Pérdida de peso": {} };
 
 
   constructor(private http: HttpClient) { }
@@ -29,13 +33,51 @@ export class DietasPage implements OnInit {
 
   ngOnInit() {
     this.api.getDietRes().subscribe((response) => {
-      this.data = response;
-      console.log(this.data);
-  
-      this.dietasRes = this.transformarDatosDietaRes(response);
-      console.log(this.dietasRes);
+      this.combinedData["Entrenamiento de resistencia"] = { ...this.transformarDatosDieta(response, "Entrenamiento de resistencia") };
+      this.api.getDietCard().subscribe((responseDietCard) => {
+        this.combinedData["Entrenamiento cardiovascular"] = { ...this.transformarDatosDieta(responseDietCard, "Entrenamiento cardiovascular") };
+        this.api.getDietHigh().subscribe((responseDietHigh) => {
+          this.combinedData["Entrenamiento de alta intensidad (HIIT, CrossFit)"] = { ...this.transformarDatosDieta(responseDietHigh, "Entrenamiento de alta intensidad (HIIT, CrossFit)") };
+          this.api.getDietWeight().subscribe((responseDietWeight) => {
+            this.combinedData["Pérdida de peso"] = { ...this.transformarDatosDieta(responseDietWeight, "Pérdida de peso") };
+            this.dietasRes = this.combinedData;
+          });
+        });
+      });
     });
   }
+
+  transformarDatosDieta(data: any, key: string) {
+    const transformedData: any = {};
+
+    for (let i = 0; i < data.length; i++) {
+      const dieta = data[i];
+      const id = dieta.id;
+
+      transformedData[id] = {
+        state: id,
+        desayuno: dieta.desayuno,
+        nombreDesayuno: dieta.nombreDesayuno,
+        descripcionDesayuno: dieta.descripcionDesayuno,
+        almuerzo: dieta.almuerzo,
+        nombreAlmuerzo: dieta.nombreAlmuerzo,
+        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
+        meriendaTarde: dieta.meriendaTarde,
+        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
+        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
+        cena: dieta.cena,
+        nombreCena: dieta.nombreCena,
+        descripcionCena: dieta.descripcionCena,
+        meriendaNocturna: dieta.meriendaNocturna,
+        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
+        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna,
+      };
+    }
+
+    return transformedData;
+  }
+
+  
   
   transformarDatosDietaRes(data: any) {
     const transformedData: any = {};
@@ -72,8 +114,109 @@ export class DietasPage implements OnInit {
     return transformedData;
   }
 
+  transformarDatosDietaCard(dataDietCard: any) {
+    const transformedDataCard: any = {};
   
+    for (let i = 0; i < dataDietCard.length; i++) {
+      const dieta = dataDietCard[i];
+      const id = dieta.id;
+      
+      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
+      if (!transformedDataCard["Entrenamiento cardiovascular"]) {
+        transformedDataCard["Entrenamiento cardiovascular"] = {};
+      }
+      
+      transformedDataCard["Entrenamiento cardiovascular"][id] = {
+        state: id,
+        desayuno: dieta.desayuno,
+        nombreDesayuno: dieta.nombreDesayuno,
+        descripcionDesayuno: dieta.descripcionDesayuno,
+        almuerzo: dieta.almuerzo,
+        nombreAlmuerzo: dieta.nombreAlmuerzo,
+        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
+        meriendaTarde: dieta.meriendaTarde,
+        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
+        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
+        cena: dieta.cena,
+        nombreCena: dieta.nombreCena,
+        descripcionCena: dieta.descripcionCena,
+        meriendaNocturna: dieta.meriendaNocturna,
+        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
+        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
+      };
+    }
+  
+    return transformedDataCard;
+  }
 
+  transformarDatosDietaPesada(dataDietHigh: any) {
+    const transformedDataHigh: any = {};
+  
+    for (let i = 0; i < dataDietHigh.length; i++) {
+      const dieta = dataDietHigh[i];
+      const id = dieta.id;
+      
+      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
+      if (!transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"]) {
+        transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"] = {};
+      }
+      
+      transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"][id] = {
+        state: id,
+        desayuno: dieta.desayuno,
+        nombreDesayuno: dieta.nombreDesayuno,
+        descripcionDesayuno: dieta.descripcionDesayuno,
+        almuerzo: dieta.almuerzo,
+        nombreAlmuerzo: dieta.nombreAlmuerzo,
+        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
+        meriendaTarde: dieta.meriendaTarde,
+        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
+        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
+        cena: dieta.cena,
+        nombreCena: dieta.nombreCena,
+        descripcionCena: dieta.descripcionCena,
+        meriendaNocturna: dieta.meriendaNocturna,
+        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
+        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
+      };
+    }
+  
+    return transformedDataHigh;
+  }
+  transformarDatosDietaPeso(dataDietWeight: any) {
+    const transformedDataWeight: any = {};
+  
+    for (let i = 0; i < dataDietWeight.length; i++) {
+      const dieta = dataDietWeight[i];
+      const id = dieta.id;
+      
+      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
+      if (!transformedDataWeight["Pérdida de peso"]) {
+        transformedDataWeight["Pérdida de peso"] = {};
+      }
+      
+      transformedDataWeight["Pérdida de peso"][id] = {
+        state: id,
+        desayuno: dieta.desayuno,
+        nombreDesayuno: dieta.nombreDesayuno,
+        descripcionDesayuno: dieta.descripcionDesayuno,
+        almuerzo: dieta.almuerzo,
+        nombreAlmuerzo: dieta.nombreAlmuerzo,
+        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
+        meriendaTarde: dieta.meriendaTarde,
+        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
+        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
+        cena: dieta.cena,
+        nombreCena: dieta.nombreCena,
+        descripcionCena: dieta.descripcionCena,
+        meriendaNocturna: dieta.meriendaNocturna,
+        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
+        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
+      };
+    }
+  
+    return transformedDataWeight;
+  }
   seleccionarDieta() {
     this.dietaSeleccionada = this.dietasRes[this.seleccionOpcion];
     console.log(this.dietaSeleccionada);

@@ -10,7 +10,9 @@ export class ApiService {
   private apiPostUser = 'https://api.seyka.online/user/post';
   private apiGetUser = 'https://api.seyka.online/user';
   private apiDietRes = 'http://127.0.0.1:5000/dietRes';
-  private apiDietHea = 'http://127.0.0.1:5000/dietHea';
+  private apiDietCard = 'http://127.0.0.1:5000/dietCard';
+  private apiDietHigh = 'http://127.0.0.1:5000/dietHigh';
+  private apiDietWeight = 'http://127.0.0.1:5000/dietWeight';
   private apiGetGymAss = 'https://api.seyka.online/gym';
 
   constructor(private http: HttpClient) {}
@@ -44,13 +46,29 @@ export class ApiService {
     //return this.http.get(this.apiGetUser);
     return this.http.get(`${this.apiDietRes}/get`, { headers });
   }
-  getDietHea(){
+  getDietCard(){
     // Obtiene los encabezados que incluyen el token JWT
     const headers = this.getHeaders();
     console.log(headers)
     // Realiza una solicitud GET a la API con los encabezados
     //return this.http.get(this.apiGetUser);
-    return this.http.get(`${this.apiDietHea}/get`, { headers });
+    return this.http.get(`${this.apiDietCard}/get`, { headers });
+  }
+  getDietHigh(){
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    //return this.http.get(this.apiGetUser);
+    return this.http.get(`${this.apiDietHigh}/get`, { headers });
+  }
+  getDietWeight(){
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    //return this.http.get(this.apiGetUser);
+    return this.http.get(`${this.apiDietWeight}/get`, { headers });
   }
 
   getUser() {
