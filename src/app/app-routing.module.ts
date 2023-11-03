@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
-import { LoadingComponent } from './loading/loading.component';
+
 
 const routes: Routes = [
   { 
-    path: '',
+    path: 'loading',
     component: LoadingComponent,
   },
-  
+  {
+    path: '',
+    redirectTo: 'loading',
+    pathMatch: 'full'
+  },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule), canActivate:[NoAuthGuard]

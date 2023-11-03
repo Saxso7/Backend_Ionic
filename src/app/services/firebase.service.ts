@@ -49,8 +49,8 @@ export class FirebaseService {
     return createUserWithEmailAndPassword(getAuth(), user.email, user.password);
   }
 
-  // Iniciar sesión en Firebase
-  async signIn(user: User): Promise<void> {
+   // Iniciar sesión en Firebase
+   async signIn(user: User): Promise<void> {
     try {
       const result = await signInWithEmailAndPassword(getAuth(), user.email, user.password);
       if (result.user) {

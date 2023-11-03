@@ -51,47 +51,33 @@
         </ion-list>
       </ion-item>
 
-      <ion-list class="video-pos">
-        <ion-item *ngIf="dietaSeleccionada" aria-label="Favorita dieta" value="Opciones">
-          <ion-label class="dietas">
-            <h1>{{dietaSeleccionada.state}}</h1>
-            <h2>{{dietaSeleccionada.desayuno}}</h2> 
-            <p>{{dietaSeleccionada.nombreDesayuno}}</p> 
-            <h6>{{dietaSeleccionada.descriptionDesayuno}}</h6>     
-            <p>{{dietaSeleccionada.description}}</p>
-            <h2>{{dietaSeleccionada.almuerzo}}</h2>
-            <p>{{dietaSeleccionada.nombreAlmuerzo}}</p>
-            <p>{{dietaSeleccionada.descripcionAlmuerzo}}</p>
-            <h2>{{dietaSeleccionada.meriendaTarde}}</h2> 
-            <p>{{dietaSeleccionada.nombreMeriendaTarde}}</p>
-            <p>{{dietaSeleccionada.descripcionMeriendaTarde}}</p>
-            <h2>{{dietaSeleccionada.cena}}</h2>
-            <p>{{dietaSeleccionada.nombreCena}}</p>
-            <p>{{dietaSeleccionada.descipcionCena}}</p>
-            <h2>{{dietaSeleccionada.meriendaNocturna}}</h2>
-            <p>{{dietaSeleccionada.nombreMeriendaNocturna}}</p>
-            <p>{{dietaSeleccionada.descripcionMeriendaNocturna}}</p>
-            <br>
-            <h1>{{dietaSeleccionada.state2}}</h1>
-            <h2>{{dietaSeleccionada.desayuno2}}</h2> 
-            <p>{{dietaSeleccionada.nombreDesayuno2}}</p> 
-            <p>{{dietaSeleccionada.descriptionDesayuno2}}</p>     
-            <p>{{dietaSeleccionada.description2}}</p>
-            <h2>{{dietaSeleccionada.almuerzo2}}</h2>
-            <p>{{dietaSeleccionada.nombreAlmuerzo2}}</p>
-            <p>{{dietaSeleccionada.descripcionAlmuerzo2}}</p>
-            <h2>{{dietaSeleccionada.meriendaTarde2}}</h2> 
-            <p>{{dietaSeleccionada.nombreMeriendaTarde2}}</p>
-            <p>{{dietaSeleccionada.descripcionMeriendaTarde2}}</p>
-            <h2>{{dietaSeleccionada.cena2}}</h2>
-            <p>{{dietaSeleccionada.nombreCena2}}</p>
-            <p>{{dietaSeleccionada.descipcionCena2}}</p>
-            <h2>{{dietaSeleccionada.meriendaNocturna2}}</h2>
-            <p>{{dietaSeleccionada.nombreMeriendaNocturna2}}</p>
-            <p>{{dietaSeleccionada.descripcionMeriendaNocturna2}}</p>        
-          </ion-label>
-        </ion-item>
+      <ion-list class="video-pos" *ngIf="dietaSeleccionada">
+        <ng-container *ngFor="let dieta of dietaSeleccionada | keyvalue">
+          <ion-item aria-label="Favorita dieta" value="Opciones">
+            <ion-label class="dieta">
+              <h1>{{dieta.key}}</h1>
+              <h2>{{dieta.value.desayuno}}</h2>
+              <p>{{dieta.value.nombreDesayuno}}</p>
+              <h6>{{dieta.value.descripcionDesayuno}}</h6>
+              <p>{{dieta.value.descripcion}}</p>
+              <h2>{{dieta.value.almuerzo}}</h2>
+              <p>{{dieta.value.nombreAlmuerzo}}</p>
+              <p>{{dieta.value.descripcionAlmuerzo}}</p>
+              <h2>{{dieta.value.meriendaTarde}}</h2>
+              <p>{{dieta.value.nombreMeriendaTarde}}</p>
+              <p>{{dieta.value.descripcionMeriendaTarde}}</p>
+              <h2>{{dieta.value.cena}}</h2>
+              <p>{{dieta.value.nombreCena}}</p>
+              <p>{{dieta.value.descripcionCena}}</p>
+              <h2>{{dieta.value.meriendaNocturna}}</h2>
+              <p>{{dieta.value.nombreMeriendaNocturna}}</p>
+              <p>{{dieta.value.descripcionMeriendaNocturna}}</p>
+              <br>
+            </ion-label>
+          </ion-item>
+        </ng-container>
       </ion-list>
+      
     </div>
   </ion-content>
 </div>
