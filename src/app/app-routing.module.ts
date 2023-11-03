@@ -6,14 +6,10 @@ import { LoadingComponent } from './loading/loading.component';
 
 const routes: Routes = [
   { 
-    path: 'loading',
+    path: '',
     component: LoadingComponent,
   },
-  {
-    path: '',
-    redirectTo: 'loading',
-    pathMatch: 'full'
-  },
+  
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule), canActivate:[NoAuthGuard]

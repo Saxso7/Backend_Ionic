@@ -31,7 +31,7 @@
   <ion-header>
     <ion-toolbar color="mycolor">
       <ion-buttons slot="end">
-        <ion-button (click)="signOut()"><ion-icon name="log-in"></ion-icon> </ion-button>
+        <ion-button [routerLink]="['/login']" (click)="signOut()"><ion-icon  name="log-in"></ion-icon> </ion-button>
       </ion-buttons>
       <ion-title class="bienvenidos" ><i>Energy Vibes</i></ion-title>
     </ion-toolbar>
