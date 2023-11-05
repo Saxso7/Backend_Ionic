@@ -6,12 +6,6 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-
-      <!-- Mostrar si el usuario es administrador -->
-      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        Panel de administración</ion-item>
-
       <ion-item color="mycolor" routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>
       <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
       <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
@@ -19,8 +13,7 @@
       <ion-item routerLink="/reservas"><ion-icon name="calendar"></ion-icon> Reservas</ion-item>
       <ion-item routerLink="/tutoriales"><ion-icon name="videocam"></ion-icon> Tutoriales</ion-item>
       <ion-item routerLink="/checkin"><ion-icon name="shield-checkmark"></ion-icon> Check-in</ion-item>
-      <ion-item (click)="signOut()"><ion-icon name="log-in"></ion-icon> Cerrarr Sesion</ion-item>
-      <!-- Agrega más elementos de menú aquí -->
+      <ion-item (click)="signOut()"><ion-icon name="log-in"></ion-icon> Cerrar Sesion</ion-item>
 
 
     </ion-list>
@@ -41,18 +34,7 @@
     
     <div class="image">
     <div class="">
-    <ion-grid *ngIf="isUserAdmin()">
-      <ion-row>
-        <ion-col>
-          <div id="container2">
-            <button ion-button [routerLink]="['/admin']" class="btn" *ngIf="isUserAdmin()">
-              <ion-icon name="home-outline"></ion-icon> Administrador
-            </button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
+    
     <ion-grid  ><img class="logo" src="assets/fotos/logo2.png" alt="Logo de la aplicación" width="200">
     
       <ion-row>

@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 declare var google; 
@@ -16,39 +17,36 @@ export class UbicationPage implements OnInit {
   map: any; // Declara la variable para el mapa
   infoWindows: any = [];
   marcador: any = [];
-
-
-  constructor() { }
+ 
+  datos: any = [];
+  constructor(private dataStorage: DataStorageService) { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);
   api = inject(ApiService);
 
   async ngOnInit() {
-    await this.addMarkersToMap(this.marcador);
-    this.api.getGym().subscribe((response) => {
-      this.data = response;
-      this.marcador = this.data;
-      console.log(this.marcador);
-    });
-    // Espera a que se agreguen los marcadores antes de continuar
+    await this.loadDataFromLocalStorage();
     
+    // Espera a que se agreguen los marcadores antes de continuar
+    await this.addMarkersToMap(this.marcador);
 
     this.initMap();
 
   }
-  userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
-  
+  loadDataFromLocalStorage() {
+    // Intenta cargar los datos desde el almacenamiento local
+    const storedData = this.dataStorage.getDataGym();
 
-  // Función para verificar si el usuario tiene el rol "admin"
-  isUserAdmin(): boolean {
-    return this.userRole === 'admin';
+    if (storedData) {
+      this.marcador = storedData.gyms;
+    }
   }
-  
-
 
   signOut() {
     // Eliminar el token de autenticación de localStorage
     localStorage.removeItem('userToken');
+
+    this.dataStorage.clearDataGym();
     
     // Llamar al método de signOut de Firebase si es necesario
     this.firebaseServ.signOut();

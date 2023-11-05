@@ -62,7 +62,6 @@ export class FirebaseService {
         // Guarda el token en localStorage para su posterior uso
         localStorage.setItem('userToken', userToken);
 
-        localStorage.setItem('userEmail', user.email);
 
         
         

@@ -4,6 +4,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { DataStorageService } from 'src/app/services/data-storage.service';
+
 
 
 
@@ -15,68 +17,41 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class MainPage implements OnInit {
   data: any;
-  
-  private afAuth: AngularFireAuth
-  firebaseServ = inject(FirebaseService);
-  utilsServ = inject(UtilsService);
-  router = inject(Router);
-  api = inject(ApiService);
 
-  users: any[];
+  
+  constructor(private afAuth: AngularFireAuth,
+              private firebaseServ:FirebaseService,
+              private utilsServ: UtilsService,
+              private router: Router,
+              private api: ApiService,
+              private dataStorageService: DataStorageService){}
+
+  marcador: any[];
   
 
 
 
   ngOnInit() {
-    this.api.getUser().subscribe((response) => {
+    this.api.getGym().subscribe((response) => {
       this.data = response;
-      this.users = this.data;
-      console.log(this.users);
-
-      // Asegúrate de que la respuesta contenga los usuarios y sea un arreglo
-      if (Array.isArray(this.data.users)) {
-        // Obtén el rol del usuario autenticado desde localStorage
-        const authenticatedEmail = localStorage.getItem('userEmail');
-        console.log(authenticatedEmail)
-
-        if (authenticatedEmail) {
-          // Encuentra el usuario correspondiente al correo autenticado
-          const user = this.data.users.find(user => user.email === authenticatedEmail);
-
-          if (user) {
-            // Si se encontró un usuario con el correo autenticado
-            this.userRole = user.role; // Asigna el rol del usuario a la variable userRole
-            console.log("El rol del usuario autenticado es: " + this.userRole);
-          } else {
-            // Si no se encontró un usuario con el correo autenticado
-            console.log("No se encontró un usuario con el correo autenticado.");
-          }
-        } else {
-          console.log("No se encontró el correo autenticado en localStorage.");
-        }
-      } else {
-        console.error("La respuesta no contiene un arreglo de usuarios.");
-      }
+      this.marcador = this.data;
+      console.log(this.marcador)
+      this.dataStorageService.setDataGym(this.marcador)
+      const dataGym = this.dataStorageService.getDataGym()
+      console.log(dataGym)
     });
-    
-    
-  }
-  userRole: string | undefined; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
-  
-
-  // Función para verificar si el usuario tiene el rol "admin"
-  isUserAdmin(): boolean {
-    return this.userRole === 'admin';
-  }
-  
-  
 
   
+  }
+
+
   signOut() {
     // Eliminar el token de autenticación de localStorage
     localStorage.removeItem('userToken');
 
     localStorage.removeItem('userEmail');
+
+    this.dataStorageService.clearDataGym();
     
     this.afAuth.signOut().then(() => {
       // Cierre de sesión exitoso
