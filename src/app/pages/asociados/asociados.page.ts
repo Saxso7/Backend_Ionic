@@ -31,7 +31,7 @@ export class AsociadosPage implements OnInit {
     this.permission = true;
     this.api.getGym().subscribe((response) => {
       this.data = response;
-      this.gyms = this.data.gyms;
+      this.gyms = this.data;
       console.log(this.gyms);
     });
     
