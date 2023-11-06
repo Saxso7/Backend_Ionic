@@ -4,11 +4,10 @@ import { NoAuthGuard } from './guards/no-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { LoadingComponent } from './shared/componentes/loading/loading.component';
 
-
 const routes: Routes = [
-  { 
+  {
     path: 'loading',
-    component: LoadingComponent,
+    component: LoadingComponent // Carga el componente directamente
   },
   {
     path: '',
@@ -59,8 +58,6 @@ const routes: Routes = [
     path: 'dietas',
     loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule),canActivate:[AuthGuard]
   },
-  
-
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@ export class LoadingComponent  implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.router.navigate(['/login']); // Redirigir a la página principal
+      this.router.navigate(['/main']); // Redirigir a la página principal
     }, 3000); // Tiempo de espera en milisegundos
   }
   
