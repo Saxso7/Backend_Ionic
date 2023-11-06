@@ -9,10 +9,10 @@ export class ApiService {
 
   private apiPostUser = 'https://api.seyka.online/user/post';
   private apiGetUser = 'https://api.seyka.online/user';
-  private apiDietRes = 'http://127.0.0.1:5000/dietRes';
-  private apiDietCard = 'http://127.0.0.1:5000/dietCard';
-  private apiDietHigh = 'http://127.0.0.1:5000/dietHigh';
-  private apiDietWeight = 'http://127.0.0.1:5000/dietWeight';
+  private apiDietRes = 'https://api.seyka.online/dietRes';
+  private apiDietCard = 'https://api.seyka.online/dietCard';
+  private apiDietHigh = 'https://api.seyka.online/dietHigh';
+  private apiDietWeight = 'https://api.seyka.online/dietWeight';
   private apiGetGymAss = 'https://api.seyka.online/gym';
 
   constructor(private http: HttpClient) {}

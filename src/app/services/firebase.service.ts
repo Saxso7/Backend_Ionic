@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail, getIdToken } from 'firebase/auth';
 import { User } from '../models/user.models';
@@ -12,10 +12,9 @@ export class FirebaseService {
   private inactivityTimer: any;
   private inactivityDuration: number = 600000; 
 
-  auth = inject(AngularFireAuth);
-  router = inject(Router);
 
-  constructor() {
+  constructor(private auth: AngularFireAuth,
+             private router: Router) {
     this.initializeInactivityTimer();
   }
 
@@ -63,7 +62,6 @@ export class FirebaseService {
         // Guarda el token en localStorage para su posterior uso
         localStorage.setItem('userToken', userToken);
 
-        localStorage.setItem('userEmail', user.email);
 
         
         

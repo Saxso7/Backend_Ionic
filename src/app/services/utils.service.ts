@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LoadingController, ToastController, ToastOptions } from '@ionic/angular';
 
 @Injectable({
@@ -6,10 +6,9 @@ import { LoadingController, ToastController, ToastOptions } from '@ionic/angular
 })
 export class UtilsService {
 
-  //Aqui preparamos el loading cuando la funcion de inicio de sesion se este ejecutando
+  constructor(private loadingCtrl: LoadingController,
+              private toastCtrl: ToastController) { }
 
-  loadingCtrl = inject(LoadingController);
-  toastCtrl = inject(ToastController);
 
   loading(){
     return this.loadingCtrl.create({ spinner: 'crescent'})
