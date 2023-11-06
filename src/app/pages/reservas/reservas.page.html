@@ -32,10 +32,38 @@
       <ion-title>Reserva de hora</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
+ 
+<!-- reservas.page.html -->
 
+<ion-content>
+ 
+</ion-content>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Información de Fechas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  </ion-content>
+<ion-content>
+  <!-- Mostrar la fecha formateada -->
+  <ion-item>
+    <ion-label>Fecha Formateada:</ion-label>
+    <ion-note>{{ formattedDate }}</ion-note>
+  </ion-item>
 
+  <!-- Mostrar la fecha analizada -->
+  <ion-item>
+    <ion-label>Fecha Analizada:</ion-label>
+    <ion-note>{{ parsedDate | date: 'dd/MM/yyyy' }}</ion-note>
+  </ion-item>
+
+  <!-- Mostrar la diferencia de días -->
+  <ion-item>
+    <ion-label>Diferencia de Días:</ion-label>
+    <ion-note>{{ daysDifference }}</ion-note>
+  </ion-item>
+</ion-content>
 </div>
 

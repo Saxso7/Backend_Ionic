@@ -1,6 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { compareAsc, format } from 'date-fns'
+import { parse, differenceInDays } from 'date-fns';
+
 
 
 @Component({
@@ -10,11 +13,20 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class ReservasPage implements OnInit {
 
+  formattedDate: string; // Declarar la propiedad formattedDate
+  parsedDate: Date; // Declarar la propiedad parsedDate
+  daysDifference: number; // Declarar la propiedad daysDifference
+
+
+
+
   constructor() { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);
 
+
   ngOnInit() {
+    this.printDateInfo();
   }
   userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
   
@@ -43,6 +55,23 @@ export class ReservasPage implements OnInit {
       this.router.navigate(['/main']);
     }, 400); // 300 milisegundos (ajusta este valor según tus necesidades)
   }
+  printDateInfo() {
+    const date = new Date();
+    this.formattedDate = format(date, 'dd/MM/yyyy');
+    console.log('Formatted Date:', this.formattedDate);
 
+    const dateString = '2023-11-03';
+    this.parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
+    console.log('Parsed Date:', this.parsedDate);
 
+    const startDate = new Date('2023-11-01');
+    const endDate = new Date('2023-11-10');
+    this.daysDifference = differenceInDays(endDate, startDate);
+    console.log('Days Difference:', this.daysDifference);
+  }
 }
+
+ 
+
+
+
