@@ -3,7 +3,7 @@
 
 
   <div class="d-flex-center">
-    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()" >
       <div class="titulo">
         <h1>
           <b>
@@ -56,7 +56,7 @@
   
 </ion-content>
 <ion-footer>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="mycolor">
     <ion-buttons slot="end">
       <ion-button routerLink="/sign-up" routerLinkActive="router-link-active"  class="ion-margin-top" expand="block"   node="ios"  >
         Registrarse
