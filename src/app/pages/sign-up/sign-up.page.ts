@@ -19,7 +19,7 @@ export class SignUpPage implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     lastName: new FormControl('', [Validators.required, Validators.minLength(4)]),
     age: new FormControl('',[Validators.required,Validators.maxLength(2)]),
-    numContact: new FormControl('',[Validators.required,Validators.maxLength(8)])
+    numContact: new FormControl('',[Validators.required,Validators.maxLength(9)])
   })
 
   constructor(private firebaseServ: FirebaseService,
