@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { ApiService } from 'src/app/services/api.service';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,17 @@ export class LoginPage implements OnInit {
     private firebaseServ: FirebaseService,
     private utilsServ: UtilsService,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private dataStorageService: DataStorageService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    localStorage.removeItem('userToken');
+
+    localStorage.removeItem('userEmail');
+
+    this.dataStorageService.clearDataGym();
+  }
 
   async submit() {
     if (this.form.valid) {

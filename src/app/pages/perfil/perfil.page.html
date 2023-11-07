@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="mycolor">
+    <ion-title>Perfil de Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+ 
+
+  <ion-card *ngIf="apiUserData">
+    <ion-card-header>
+      <ion-card-title>Datos del Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+    
+  
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="apiUserData.name" type="text" label="">
+            <ion-button (click)="actualizarCampo('name')" class="ion-float-right custom-button">
+              <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+          </ion-input>
+          
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input [(ngModel)]="apiUserData.lastName" type="text" label="">
+            <ion-button (click)="actualizarCampo('lastName')" class="ion-float-right custom-button">
+              <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+          </ion-input>
+          
+        </ion-item>
+        
+        
+        
+        <ion-item>
+          <ion-label position="stacked">Edad</ion-label>
+          <ion-input [(ngModel)]="apiUserData.age" type="text" label="">
+            <ion-button (click)="actualizarCampo('age')" class="ion-float-right custom-button">
+              <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+          </ion-input>
+          
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Numero de contacto</ion-label>
+          <ion-input [(ngModel)]="apiUserData.numContact" type="text" label="">
+            <ion-button (click)="actualizarCampo('numContact')" class="ion-float-right custom-button">
+              <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-button>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Correo Electrónico</ion-label>
+          <ion-input [(ngModel)]="apiUserData.email" type="text" label="" [readonly]="true"></ion-input>
+        </ion-item>
+
+        
+        
+      </ion-list>
+      
+    </ion-card-content>
+  
+  </ion-card>
+
+  <ion-card *ngIf="!userData">
+    <ion-card-header>
+      <ion-card-title>No has iniciado sesión en Firebase</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

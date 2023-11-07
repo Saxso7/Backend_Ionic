@@ -57,7 +57,11 @@ const routes: Routes = [
   {
     path: 'dietas',
     loadChildren: () => import('./pages/dietas/dietas.module').then( m => m.DietasPageModule),canActivate:[AuthGuard]
+  },  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+
 ];
 
 @NgModule({

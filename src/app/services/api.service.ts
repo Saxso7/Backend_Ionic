@@ -107,6 +107,15 @@ export class ApiService {
     const headers = this.getHeaders();
     return this.http.get(`${this.apiGetUser}/get/${userId}`, { headers });
   }
+  updateUserField(userId: string, fieldName: string, newValue: any): Observable<any> {
+    const headers = this.getHeaders();
+    const data = {
+      field_name: fieldName,
+      new_value: newValue
+    };
+
+    return this.http.put(`${this.apiGetUser}/updateField/${userId}`, data, { headers });
+  }
 
 
   
