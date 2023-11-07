@@ -17,14 +17,15 @@ export class SignUpPage implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    age: new FormControl('',[Validators.required,Validators.maxLength(2)])
+    lastName: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    age: new FormControl('',[Validators.required,Validators.maxLength(2)]),
+    numContact: new FormControl('',[Validators.required,Validators.maxLength(8)])
   })
 
-  firebaseServ = inject(FirebaseService);
-  utilsServ = inject(UtilsService);
-  router = inject(Router);
-  apiService = inject(ApiService);
-  constructor() { }
+  constructor(private firebaseServ: FirebaseService,
+              private utilsServ: UtilsService,
+              private router: Router,
+              private apiService: ApiService) { }
 
   ngOnInit() {
   }
