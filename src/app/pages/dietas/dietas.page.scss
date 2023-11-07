@@ -124,3 +124,9 @@ ion-toolbar{
     text-align: center;
     position: relative;
 }
+
+
+.wrap-text {
+  white-space: normal; /* o 'pre-wrap' si prefieres */
+  word-wrap: break-word;
+}

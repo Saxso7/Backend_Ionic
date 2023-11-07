@@ -23,7 +23,6 @@ export class DataStorageService {
     localStorage.removeItem(this.localStorageKey);
   }
 
-  private dietLocalStorage = 'diets';
 
 }
 
