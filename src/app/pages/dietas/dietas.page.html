@@ -48,10 +48,10 @@
       </ion-item>
 
       <ion-list class="video-pos" *ngIf="dietaSeleccionada">
-        <ng-container *ngFor="let dieta of dietaSeleccionada | keyvalue">
+        <ng-container *ngFor="let dieta of dietaSeleccionada | keyvalue; let i = index">
           <ion-item aria-label="Favorita dieta" value="Opciones">
             <ion-label class="dieta">
-              <h1>{{dieta.key}}</h1>
+              <h1>Opción {{ i + 1 }}</h1>
               <h2>{{dieta.value.desayuno}}</h2>
               <p>{{dieta.value.nombreDesayuno}}</p>
               <h6>{{dieta.value.descripcionDesayuno}}</h6>

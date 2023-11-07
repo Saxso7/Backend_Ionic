@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
@@ -19,10 +18,11 @@ export class UbicationPage implements OnInit {
   marcador: any = [];
  
   datos: any = [];
-  constructor(private dataStorage: DataStorageService) { }
-  firebaseServ = inject(FirebaseService);
-  router = inject(Router);
-  api = inject(ApiService);
+  constructor(private dataStorage: DataStorageService,
+              private firebaseServ: FirebaseService,
+              private  router: Router
+              ){ }
+
 
   async ngOnInit() {
     await this.loadDataFromLocalStorage();

@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { HttpClient } from '@angular/common/http'
-import { map } from 'rxjs/operators';
-import { ApiService } from 'src/app/services/api.service';
+import { HttpClient } from '@angular/common/http';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 
 
@@ -21,12 +19,12 @@ export class AsociadosPage implements OnInit {
 
   constructor(    
     private http: HttpClient,
-    private dataStorage: DataStorageService
+    private dataStorage: DataStorageService,
+    private firebaseServ: FirebaseService,
+    private router: Router
     
   ) { }
-  firebaseServ = inject(FirebaseService);
-  router = inject(Router);
-  api = inject(ApiService);
+
 
 
   ngOnInit() {

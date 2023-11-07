@@ -22,5 +22,8 @@ export class DataStorageService {
     // Elimina los datos del almacenamiento local
     localStorage.removeItem(this.localStorageKey);
   }
+
+  private dietLocalStorage = 'diets';
+
 }
 

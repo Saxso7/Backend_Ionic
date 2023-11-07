@@ -5,6 +5,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { KeyValue } from '@angular/common';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -18,209 +19,62 @@ export class DietasPage implements OnInit {
   dietasRes: any = { };
   dietaSeleccionada: KeyValue<string, any>; 
   data: any;
+  dataDietRes: any;
   dataDietCard: any;
   dataDietHigh: any;
   dataDietWeight: any;
   combinedData: any = { "Entrenamiento de resistencia": {}, "Entrenamiento cardiovascular": {}, "Entrenamiento de alta intensidad (HIIT, CrossFit)": {}, "Pérdida de peso": {} };
 
 
-  constructor(private http: HttpClient,
-             private firebaseServ: FirebaseService,
-             private api: ApiService,
-             private router: Router) { }
+  constructor(private http: HttpClient) { }
+  firebaseServ = inject(FirebaseService);
+  router = inject(Router);
+  api = inject(ApiService);
+
 
 
   ngOnInit() {
-    this.api.getDietRes().subscribe((response) => {
-      this.combinedData["Entrenamiento de resistencia"] = { ...this.transformarDatosDieta(response, "Entrenamiento de resistencia") };
-      this.api.getDietCard().subscribe((responseDietCard) => {
-        this.combinedData["Entrenamiento cardiovascular"] = { ...this.transformarDatosDieta(responseDietCard, "Entrenamiento cardiovascular") };
-        this.api.getDietHigh().subscribe((responseDietHigh) => {
-          this.combinedData["Entrenamiento de alta intensidad (HIIT, CrossFit)"] = { ...this.transformarDatosDieta(responseDietHigh, "Entrenamiento de alta intensidad (HIIT, CrossFit)") };
-          this.api.getDietWeight().subscribe((responseDietWeight) => {
-            this.combinedData["Pérdida de peso"] = { ...this.transformarDatosDieta(responseDietWeight, "Pérdida de peso") };
-            this.dietasRes = this.combinedData;
-          });
-        });
-      });
+    // Espera a que se carguen los datos de todas las colecciones
+    forkJoin([
+      this.api.getDietCard(),
+      this.api.getDietHigh(),
+      this.api.getDietRes(),
+      this.api.getDietWeight()
+    ]).subscribe(([dietCard, dietHigh, dietRes, dietWeight]) => {
+      this.dataDietCard = dietCard;
+      this.dataDietHigh = dietHigh;
+      this.dataDietRes = dietRes;
+      this.dataDietWeight = dietWeight;
+  
+      // Combina los datos en combinedData
+      this.dietasRes["Entrenamiento de resistencia"] = this.dataDietRes.diet_resistencias;
+      this.dietasRes["Entrenamiento cardiovascular"] = this.dataDietCard.diet_resistencias;
+      this.dietasRes["Entrenamiento de alta intensidad (HIIT, CrossFit)"] = this.dataDietHigh.diet_resistencias;
+      this.dietasRes["Pérdida de peso"] = this.dataDietWeight.diet_resistencias;
+      console.log(this.dietasRes)
     });
-  }
+}
 
-  transformarDatosDieta(data: any, key: string) {
-    const transformedData: any = {};
-
-    for (let i = 0; i < data.length; i++) {
-      const dieta = data[i];
-      const id = dieta.id;
-
-      transformedData[id] = {
-        state: id,
-        desayuno: dieta.desayuno,
-        nombreDesayuno: dieta.nombreDesayuno,
-        descripcionDesayuno: dieta.descripcionDesayuno,
-        almuerzo: dieta.almuerzo,
-        nombreAlmuerzo: dieta.nombreAlmuerzo,
-        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
-        meriendaTarde: dieta.meriendaTarde,
-        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
-        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
-        cena: dieta.cena,
-        nombreCena: dieta.nombreCena,
-        descripcionCena: dieta.descripcionCena,
-        meriendaNocturna: dieta.meriendaNocturna,
-        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
-        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna,
-      };
-    }
-
-    return transformedData;
-  }
-
-  
-  
-  transformarDatosDietaRes(data: any) {
-    const transformedData: any = {};
-  
-    for (let i = 0; i < data.length; i++) {
-      const dieta = data[i];
-      const id = dieta.id;
-      
-      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
-      if (!transformedData["Entrenamiento de resistencia"]) {
-        transformedData["Entrenamiento de resistencia"] = {};
-      }
-      
-      transformedData["Entrenamiento de resistencia"][id] = {
-        state: id,
-        desayuno: dieta.desayuno,
-        nombreDesayuno: dieta.nombreDesayuno,
-        descripcionDesayuno: dieta.descripcionDesayuno,
-        almuerzo: dieta.almuerzo,
-        nombreAlmuerzo: dieta.nombreAlmuerzo,
-        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
-        meriendaTarde: dieta.meriendaTarde,
-        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
-        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
-        cena: dieta.cena,
-        nombreCena: dieta.nombreCena,
-        descripcionCena: dieta.descripcionCena,
-        meriendaNocturna: dieta.meriendaNocturna,
-        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
-        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
-      };
-    }
-  
-    return transformedData;
-  }
-
-  transformarDatosDietaCard(dataDietCard: any) {
-    const transformedDataCard: any = {};
-  
-    for (let i = 0; i < dataDietCard.length; i++) {
-      const dieta = dataDietCard[i];
-      const id = dieta.id;
-      
-      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
-      if (!transformedDataCard["Entrenamiento cardiovascular"]) {
-        transformedDataCard["Entrenamiento cardiovascular"] = {};
-      }
-      
-      transformedDataCard["Entrenamiento cardiovascular"][id] = {
-        state: id,
-        desayuno: dieta.desayuno,
-        nombreDesayuno: dieta.nombreDesayuno,
-        descripcionDesayuno: dieta.descripcionDesayuno,
-        almuerzo: dieta.almuerzo,
-        nombreAlmuerzo: dieta.nombreAlmuerzo,
-        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
-        meriendaTarde: dieta.meriendaTarde,
-        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
-        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
-        cena: dieta.cena,
-        nombreCena: dieta.nombreCena,
-        descripcionCena: dieta.descripcionCena,
-        meriendaNocturna: dieta.meriendaNocturna,
-        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
-        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
-      };
-    }
-  
-    return transformedDataCard;
-  }
-
-  transformarDatosDietaPesada(dataDietHigh: any) {
-    const transformedDataHigh: any = {};
-  
-    for (let i = 0; i < dataDietHigh.length; i++) {
-      const dieta = dataDietHigh[i];
-      const id = dieta.id;
-      
-      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
-      if (!transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"]) {
-        transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"] = {};
-      }
-      
-      transformedDataHigh["Entrenamiento de alta intensidad (HIIT, CrossFit)"][id] = {
-        state: id,
-        desayuno: dieta.desayuno,
-        nombreDesayuno: dieta.nombreDesayuno,
-        descripcionDesayuno: dieta.descripcionDesayuno,
-        almuerzo: dieta.almuerzo,
-        nombreAlmuerzo: dieta.nombreAlmuerzo,
-        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
-        meriendaTarde: dieta.meriendaTarde,
-        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
-        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
-        cena: dieta.cena,
-        nombreCena: dieta.nombreCena,
-        descripcionCena: dieta.descripcionCena,
-        meriendaNocturna: dieta.meriendaNocturna,
-        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
-        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
-      };
-    }
-  
-    return transformedDataHigh;
-  }
-  transformarDatosDietaPeso(dataDietWeight: any) {
-    const transformedDataWeight: any = {};
-  
-    for (let i = 0; i < dataDietWeight.length; i++) {
-      const dieta = dataDietWeight[i];
-      const id = dieta.id;
-      
-      // Verifica si ya existe la clave "Entrenamiento de resistencia" y si no, créala
-      if (!transformedDataWeight["Pérdida de peso"]) {
-        transformedDataWeight["Pérdida de peso"] = {};
-      }
-      
-      transformedDataWeight["Pérdida de peso"][id] = {
-        state: id,
-        desayuno: dieta.desayuno,
-        nombreDesayuno: dieta.nombreDesayuno,
-        descripcionDesayuno: dieta.descripcionDesayuno,
-        almuerzo: dieta.almuerzo,
-        nombreAlmuerzo: dieta.nombreAlmuerzo,
-        descripcionAlmuerzo: dieta.descripcionAlmuerzo,
-        meriendaTarde: dieta.meriendaTarde,
-        nombreMeriendaTarde: dieta.nombreMeriendaTarde,
-        descripcionMeriendatarde: dieta.descripcionMeriendatarde,
-        cena: dieta.cena,
-        nombreCena: dieta.nombreCena,
-        descripcionCena: dieta.descripcionCena,
-        meriendaNocturna: dieta.meriendaNocturna,
-        nombreMeriendaNocturna: dieta.nombreMeriendaNocturna,
-        descripcionMeriendaNocturna: dieta.descripcionMeriendaNocturna
-      };
-    }
-  
-    return transformedDataWeight;
-  }
   seleccionarDieta() {
     this.dietaSeleccionada = this.dietasRes[this.seleccionOpcion];
     console.log(this.dietaSeleccionada);
   }
  
+
+
+
+
+
+  userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
+  
+
+  // Función para verificar si el usuario tiene el rol "admin"
+  isUserAdmin(): boolean {
+    return this.userRole === 'admin';
+  }
+  
+
+
   signOut() {
     // Eliminar el token de autenticación de localStorage
     localStorage.removeItem('userToken');
