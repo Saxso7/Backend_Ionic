@@ -35,7 +35,6 @@ export class MainPage implements OnInit {
     this.api.getGym().subscribe((response) => {
       this.data = response;
       this.marcador = this.data;
-      console.log(this.marcador)
       this.dataStorageService.setDataGym(this.marcador)
       const dataGym = this.dataStorageService.getDataGym()
       console.log(dataGym)

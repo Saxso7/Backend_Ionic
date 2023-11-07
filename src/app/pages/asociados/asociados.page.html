@@ -7,11 +7,7 @@
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
-    
-      <!-- Mostrar si el usuario es administrador -->
-      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">
-        <ion-icon name="person-circle-outline"></ion-icon>Panel de administración</ion-item>
-    
+
         <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>      
         <ion-item routerLink="/dietas"><ion-icon name="fast-food"></ion-icon> Dietas</ion-item>
         <ion-item routerLink="/pago"><ion-icon name="card"></ion-icon> Pagos</ion-item>
@@ -40,7 +36,7 @@
 <ion-content [fullscreen]="true">
   <div><h1 class="bienvenidos"><i>Lista Gimnasios asociados</i> </h1></div>
   <div >  
-    <ion-list *ngIf="permission">
+    <ion-list>
       <ion-item id="Lista" *ngFor="let gym of gyms">
       <ion-label>
         <h2 >{{gym.nombre}}</h2>
@@ -50,7 +46,6 @@
     </ion-item>
     </ion-list>
   </div>
-  <ion-label *ngIf="!permission">No tienes permisos para ver asociados</ion-label>
 
    
     <div class="image2">

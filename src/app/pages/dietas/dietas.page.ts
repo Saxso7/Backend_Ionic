@@ -24,11 +24,10 @@ export class DietasPage implements OnInit {
   combinedData: any = { "Entrenamiento de resistencia": {}, "Entrenamiento cardiovascular": {}, "Entrenamiento de alta intensidad (HIIT, CrossFit)": {}, "Pérdida de peso": {} };
 
 
-  constructor(private http: HttpClient) { }
-  firebaseServ = inject(FirebaseService);
-  router = inject(Router);
-  api = inject(ApiService);
-
+  constructor(private http: HttpClient,
+             private firebaseServ: FirebaseService,
+             private api: ApiService,
+             private router: Router) { }
 
 
   ngOnInit() {
@@ -222,21 +221,6 @@ export class DietasPage implements OnInit {
     console.log(this.dietaSeleccionada);
   }
  
-
-
-
-
-
-  userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
-  
-
-  // Función para verificar si el usuario tiene el rol "admin"
-  isUserAdmin(): boolean {
-    return this.userRole === 'admin';
-  }
-  
-
-
   signOut() {
     // Eliminar el token de autenticación de localStorage
     localStorage.removeItem('userToken');
