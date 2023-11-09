@@ -29,12 +29,34 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/main"></ion-back-button>
     </ion-buttons>
-    <ion-title class="centrar">Check-in</ion-title>
+    <ion-title class="title">Check-in</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  
+<ion-content >
+<div class="image">
+
+
+<ion-title class="centrar">Reservas realizadas </ion-title>
+
+<ion-card class="cardTransp">
+
+  <ion-list>
+  <ion-item *ngFor="let reserva of reservas">
+    <!-- Muestra los detalles de la reserva -->
+    
+    <ion-label >
+      Gimnasio: {{ reserva.gym }} <br>
+      Fecha: {{ reserva.date }} <br>
+      Hora: {{ reserva.time }}
+    </ion-label>
+    <!-- Agrega aquí cualquier otro contenido relacionado con el check-in -->
+  </ion-item>
+</ion-list>
+</ion-card>
+
+
+</div>
 </ion-content>
 <ion-footer  [translucent]="true" class="ion-no-border">
   <ion-toolbar class="img-container" color="light">

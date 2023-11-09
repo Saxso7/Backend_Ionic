@@ -3,8 +3,44 @@ ion-toolbar{
 }
 .centrar{
     text-align: center;
+    position: relative;
+    top: 1%;
+    padding-top: 15%;
 }
 .imaCenter{
     text-align: center;
     position: relative;
 }
+.title{
+    text-align: center;
+}
+.text-center{
+    text-align: center;
+}
+
+.image{
+    width: 100%;
+    height: 87.5vh;
+    
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 5px;
+    font-size: 3rem;
+    background-position: center;
+    background-size: cover;
+    background-image: linear-gradient(to right,  transparent, rgba(180, 182, 184, 0.409) ),
+     url("../../../assets/fotos/checkin.jpg");
+  }
+  .cardTransp{
+    position: relative;
+    background-color: rgba(255, 255, 1255, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.322);      
+    top: 3%;
+  }
+  .card{
+    text-align: center;
+    position: absolute;
+    
+    
+  }

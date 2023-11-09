@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { ReservaService } from '../../services/reserva.service';
+
 
 @Component({
   selector: 'app-checkin',
@@ -8,12 +10,17 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./checkin.page.scss'],
 })
 export class CheckinPage implements OnInit {
+  reservas: any[];
 
-  constructor() { }
+  constructor(private reservaService: ReservaService) { }
   firebaseServ = inject(FirebaseService);
   router = inject(Router);
 
   ngOnInit() {
+    
+  console.log('Reservass: ', this.reservas); // Agrega esta línea
+
+    this.reservas = this.reservaService.obtenerReservas();
   }
   userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
   

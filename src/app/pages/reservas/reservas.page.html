@@ -32,45 +32,73 @@
       <ion-title>Reserva de hora</ion-title>
     </ion-toolbar>
   </ion-header>
- 
-<!-- reservas.page.html -->
+  <ion-content >   
+    <div class="image">
 
-<ion-content>
- 
-</ion-content>
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Información de Fechas
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    
+    <div>
+      <label class="text-center"><I>
+        Selecione las opciones para realizar su reserva
+      </I>
+    </label>
+       
+     
+    </div>  
 
-<ion-content>
-  <!-- Mostrar la fecha formateada -->
-  <ion-item>
-    <ion-label>Fecha Formateada:</ion-label>
-    <ion-note>{{ formattedDate }}</ion-note>
-  </ion-item>
+    <ion-list >
 
-  <!-- Mostrar la fecha analizada -->
-  <ion-item>
-    <ion-label>Fecha Analizada:</ion-label>
-    <ion-note>{{ parsedDate | date: 'dd/MM/yyyy' }}</ion-note>
-  </ion-item>
+      <ion-list >
+        <ion-item class="Select">
+          <ion-label>Elija gimnasio:</ion-label>
+          <ion-select placeholder="Gminasios" [(ngModel)]="selectedGym" (ionChange)="onGymChange()">
+            <ion-select-option *ngFor="let gym of gyms" [value]="gym.title">{{ gym.title }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      
+      <ion-list *ngIf="datesAvailable.length > 0">
+        <ion-item>
+          <ion-label>Fecha:</ion-label>
+          <ion-select [(ngModel)]="selectedDate" (ionChange)="onDateChange()">
+            <ion-select-option *ngFor="let date of datesAvailable" [value]="date">{{ date }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      
+      <ion-list *ngIf="hoursAvailable.length > 0">
+        <ion-item>
+          <ion-label>Hora:</ion-label>
+          <ion-select [(ngModel)]="selectedTime">
+            <ion-select-option *ngFor="let hour of hoursAvailable" [value]="hour">{{ hour }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>   
+      
+      <ion-button expand="full" (click)="submitReservation()">Reservar</ion-button>
+      </ion-list>
+      <div class="imaCenter">
+         <ion-button  (click)="goCheckin()" class="btn">Ver reservas</ion-button>
+      </div>
+     
 
-  <!-- Mostrar la diferencia de días -->
-  <ion-item>
-    <ion-label>Diferencia de Días:</ion-label>
-    <ion-note>{{ daysDifference }}</ion-note>
-  </ion-item>
-</ion-content>
-<ion-footer  [translucent]="true" class="ion-no-border">
-  <ion-toolbar class="img-container" color="light">
-    <div class="imaCenter">
-       <img  src="assets/icon/TBC1.png" width="50" height="50" />
-    </div>     
-  </ion-toolbar>
-</ion-footer>
+      <label class="text-center2"><I>No olvides hacer tu checkin</I></label>
+    </div>
+  </ion-content>
+  <ion-footer  [translucent]="true" class="ion-no-border">
+    <ion-toolbar class="img-container" color="light">
+      <div class="imaCenter">
+         <img  src="assets/icon/TBC1.png" width="50" height="50" />
+      </div>     
+    </ion-toolbar>
+  </ion-footer>
 </div>
+
+
+      
+ 
+ 
+
+
+
+
 
