@@ -31,8 +31,8 @@ export class MainPage implements OnInit {
 
 
 
-  ngOnInit() {
-    this.api.getGym().subscribe((response) => {
+  async ngOnInit() {
+    await this.api.getGym().subscribe((response) => {
       this.data = response;
       this.marcador = this.data;
       this.dataStorageService.setDataGym(this.marcador)
@@ -46,9 +46,7 @@ export class MainPage implements OnInit {
 
   signOut() {
     // Eliminar el token de autenticación de localStorage
-    localStorage.removeItem('userToken');
-
-    localStorage.removeItem('userEmail');
+    localStorage.clear();
 
     this.dataStorageService.clearDataGym();
     

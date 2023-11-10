@@ -8,8 +8,7 @@
     <ion-list>
       <ion-item routerLink="/main" ><ion-icon name="home"></ion-icon> Inicio</ion-item>
     
-      <!-- Mostrar si el usuario es administrador -->
-      <ion-item *ngIf="isUserAdmin()" routerLink="/admin">Panel de administración</ion-item>
+
      
         <ion-item routerLink="/ubication"><ion-icon name="navigate-outline"></ion-icon>Ubicaciones</ion-item>       
         <ion-item routerLink="/asociados"><ion-icon name="people"></ion-icon> Asociados</ion-item>
@@ -50,7 +49,7 @@
       <ion-list >
         <ion-item class="Select">
           <ion-label>Elija gimnasio:</ion-label>
-          <ion-select placeholder="Gminasios" [(ngModel)]="selectedGym" (ionChange)="onGymChange()">
+          <ion-select placeholder="Gimnasios" [(ngModel)]="selectedGym" (ionChange)="onGymChange()">
             <ion-select-option *ngFor="let gym of gyms" [value]="gym.title">{{ gym.title }}</ion-select-option>
           </ion-select>
         </ion-item>

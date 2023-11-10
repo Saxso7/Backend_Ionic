@@ -14,6 +14,8 @@ export class ApiService {
   private apiDietHigh = 'https://api.seyka.online/dietHigh';
   private apiDietWeight = 'https://api.seyka.online/dietWeight';
   private apiGetGymAss = 'https://api.seyka.online/gym';
+  private apiDataAv = 'https://api.seyka.online/dataAv';
+  private apiReserv = 'https://api.seyka.online/res';
 
   constructor(private http: HttpClient) {}
 
@@ -113,10 +115,27 @@ export class ApiService {
       field_name: fieldName,
       new_value: newValue
     };
+    
 
     return this.http.put(`${this.apiGetUser}/updateField/${userId}`, data, { headers });
   }
+  getData() {
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    //return this.http.get(this.apiGetUser);
+    return this.http.get(`${this.apiDataAv}/get`, { headers });
+    
+  }
 
+  postRes(reservationData: any) {
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+  
+    // Realiza una solicitud POST a la API con los encabezados
+    return this.http.post(`${this.apiReserv}/post`, reservationData, { headers });
+  }
 
   
 }

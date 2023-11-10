@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ReservaService } from '../../services/reserva.service';
 import { ToastController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 
@@ -24,30 +26,55 @@ export class ReservasPage implements OnInit {
   hoursAvailable: string[] = [];
   reservationId: string;
   reservas: any[] = [];
+  user: any;
+  DateAvaible: any;
+  dates: []=[];
 
 
-  constructor(private http: HttpClient, private reservaService: ReservaService,private toastController: ToastController ) { }
-  firebaseServ = inject(FirebaseService);
-  router = inject(Router);
+  constructor(private http: HttpClient, 
+              private reservaService: ReservaService,
+              private toastController: ToastController,
+              private api: ApiService,
+              private afAuth: AngularFireAuth,
+              private firebaseServ: FirebaseService,
+              private router:Router ) { }
 
 
-  ngOnInit(
+  async ngOnInit(
     
   ) {
-    this.getGyms().subscribe((data: any) => {
-      this.gyms = data.data;
+    this.api.getData().subscribe((response) => {
+    this.DateAvaible = response;
+    this.dates = this.DateAvaible.availability_data;
+    console.log(this.dates)
+    })
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        // Si hay un usuario autenticado, lo almacenamos en la propiedad user
+        this.user = user.email;
+        console.log(this.user)
+      }
     });
+    await this.api.getGym().subscribe((data: any) => {
+      this.gyms = data.gyms.map(gym => {
+        return {
+          user: this.user,
+          title: gym.nombre,
+          address: gym.direccion,
+          datesAvailable: this.DateAvaible.availability_data.map(availabilityData => {
+            return {
+              date: availabilityData.fechasDisponibles || 'Fecha no disponible',
+              hoursAvailable: availabilityData.hora || []
+            };
+          })
+          
+        };
+      });
+      console.log(this.gyms)
     
-    
-  }  
- 
-  userRole: string = 'usuario'; // Simula el rol del usuario (puedes obtenerlo de tu sistema de autenticación)
-  
+  })
 
-  // Función para verificar si el usuario tiene el rol "admin"
-  isUserAdmin(): boolean {
-    return this.userRole === 'admin';
-  }
+ }
 
   signOut() {
     // Eliminar el token de autenticación de localStorage
@@ -66,9 +93,7 @@ export class ReservasPage implements OnInit {
       this.router.navigate(['/main']);
     }, 400); // 300 milisegundos (ajusta este valor según tus necesidades)
   }
-  getGyms() {
-    return this.http.get('assets/productos/listaGyms.json');
-  }
+
   onGymChange() {
     // Obtener el gimnasio seleccionado
     const selectedGymData = this.gyms.find((gym) => gym.title === this.selectedGym);
@@ -92,37 +117,53 @@ export class ReservasPage implements OnInit {
     }
   }
   submitReservation() {
-    let reserva = {};
     if (this.selectedGym && this.selectedDate && this.selectedTime) {
-      // Los valores necesarios están seleccionados, puedes enviar la reserva a Firebase
-      const reservationData = {
-        gym: this.selectedGym,
-        date: this.selectedDate,
-        time: this.selectedTime
-      };
-      let reserva = { ...reservationData };
-      this.reservaService.agregarReserva(reserva);
-      console.log('Datos de la reserva:', reservationData);
-
-      this.toastController.create({
-        message: 'Reserva realizada con éxito',
-        duration: 2500,
-        position: 'bottom'
-      }).then((toast) => {
-        toast.present();
-      });
+      // Obtener el gimnasio seleccionado
+      const selectedGymData = this.gyms.find((gym) => gym.title === this.selectedGym);
+      if (selectedGymData) {
+        // Construir los datos de la reserva
+        const reservationData = {
+          usuario: this.user,
+          nombreGym: selectedGymData.title,
+          direccion: selectedGymData.address,
+          horaAgendada: this.selectedTime,
+          fechaAgendada: this.selectedDate
+          
+        };
   
-      // Aquí deberías utilizar las funciones de Firebase para enviar los datos, por ejemplo:
-      // this.firebaseService.createReservation(reservationData)
-      // Asegúrate de que tengas una función "createReservation" en tu servicio Firebase.
+        // Llamar a la función postRes() de tu servicio API
+        this.api.postRes(reservationData)
+          .subscribe((response) => {
+            // Manejar la respuesta de la API si es necesario
+            console.log('Respuesta de la API:', response);
   
-      // Luego puedes redirigir al usuario a otra página o mostrar un mensaje de éxito.
-      // this.router.navigate(['/otra-pagina']);
+            // Resto del código para manejar la respuesta, redirección, etc.
+            this.reservaService.agregarReserva(reservationData);
+  
+            this.toastController.create({
+              message: 'Reserva realizada con éxito',
+              duration: 2500,
+              position: 'bottom'
+            }).then((toast) => {
+              toast.present();
+            });
+  
+            // Redirigir al usuario u otras acciones necesarias
+            // this.router.navigate(['/otra-pagina']);
+          }, (error) => {
+            // Manejar errores de la solicitud POST
+            console.error('Error al realizar la reserva:', error);
+  
+            // Muestra un mensaje de error o realiza alguna acción adecuada
+          });
+      } else {
+        console.log('Gimnasio no encontrado');
+      }
     } else {
-      // Faltan valores, muestra un mensaje de error o realiza alguna acción adecuada.
       console.log('Debes seleccionar un gimnasio, una fecha y una hora');
     }
   }
+  
   goCheckin(){
     this.router.navigate(['/checkin']);
   };
@@ -131,10 +172,8 @@ export class ReservasPage implements OnInit {
 
 interface Gym {
   title: string;
-  latitude: number;
-  longitude: number;
+  user: string;
   address: string;
-  horario: string;
   datesAvailable: { date: string; hoursAvailable: string[] }[]; // Corrección
 }
 
