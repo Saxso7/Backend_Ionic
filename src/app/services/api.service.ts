@@ -136,6 +136,13 @@ export class ApiService {
     // Realiza una solicitud POST a la API con los encabezados
     return this.http.post(`${this.apiReserv}/post`, reservationData, { headers });
   }
+  getRes(){
+    // Obtiene los encabezados que incluyen el token JWT
+    const headers = this.getHeaders();
+    console.log(headers)
+    // Realiza una solicitud GET a la API con los encabezados
+    return this.http.get(`${this.apiReserv}/get`, { headers });
+  }
 
   
 }

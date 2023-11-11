@@ -4,6 +4,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { ReservaService } from '../../services/reserva.service';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -13,24 +15,34 @@ import { AlertController } from '@ionic/angular';
 })
 export class CheckinPage implements OnInit {
   reservas: any[];
-  isSupported = false;
-  barcodes: Barcode[] = [];
+  reser:any;
+  user: any;
+
 
   constructor(private reservaService: ReservaService,
     private alertController: AlertController,
     private firebaseServ: FirebaseService,
-    private router: Router) { }
+    private router: Router,
+    private api: ApiService,
+    private afAuth: AngularFireAuth) { }
 
   
 
   ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        // Si hay un usuario autenticado, lo almacenamos en la propiedad user
+        this.user = user.email;
+        console.log(this.user);
+  
+        // Ahora, puedes filtrar las reservas por el usuario actual
+        this.api.getRes().subscribe((response) => {
+          this.reser = response;
+          this.reservas = this.reser.reservations_data.filter(reserva => reserva.usuario === this.user);
+          console.log(this.reservas);
+        });
+      }
     });
-
-    console.log('Reservass: ', this.reservas); // Agrega esta línea
-
-    this.reservas = this.reservaService.obtenerReservas();
   }
 
 
@@ -51,6 +63,10 @@ export class CheckinPage implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/main']);
     }, 400); // 300 milisegundos (ajusta este valor según tus necesidades)
+  }
+
+  async mostrarRes(){
+    
   }
 
   
