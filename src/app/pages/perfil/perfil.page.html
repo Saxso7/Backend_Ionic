@@ -1,19 +1,16 @@
-<ion-header>
-  <ion-toolbar color="mycolor">
-    <ion-title>Perfil de Usuario</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar  class="text-center" color="light">
+  <ion-buttons slot="start">
+    <ion-back-button class="title" defaultHref="/main"></ion-back-button>
+  </ion-buttons>
+  <ion-title class="centrar">Perfil de Usuario</ion-title>
+</ion-toolbar>
 
-<ion-content class="ion-padding">
- 
-
-  <ion-card *ngIf="apiUserData">
-    <ion-card-header>
+<ion-content >
+  <div class="image">
+  <ion-card  *ngIf="apiUserData">
+    <ion-card-header class="text-center">
       <ion-card-title>Datos del Usuario</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-
-    
+    </ion-card-header>      
   
       <ion-list>
         <ion-item>
@@ -22,8 +19,7 @@
             <ion-button (click)="actualizarCampo('name')" class="ion-float-right custom-button">
               <ion-icon slot="icon-only" name="refresh"></ion-icon>
             </ion-button>
-          </ion-input>
-          
+          </ion-input>          
         </ion-item>
 
         <ion-item>
@@ -60,14 +56,8 @@
         <ion-item>
           <ion-label position="stacked">Correo Electrónico</ion-label>
           <ion-input [(ngModel)]="apiUserData.email" type="text" label="" [readonly]="true"></ion-input>
-        </ion-item>
-
-        
-        
-      </ion-list>
-      
-    </ion-card-content>
-  
+        </ion-item>        
+      </ion-list>  
   </ion-card>
 
   <ion-card *ngIf="!userData">
@@ -75,4 +65,5 @@
       <ion-card-title>No has iniciado sesión en Firebase</ion-card-title>
     </ion-card-header>
   </ion-card>
+</div>
 </ion-content>

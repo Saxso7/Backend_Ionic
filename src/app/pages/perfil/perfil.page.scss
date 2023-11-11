@@ -2,3 +2,32 @@
     display: flex;
     align-items: center;
   }
+  .image{
+    display: flex;
+    width: 100%;
+    height: 87.6vh;
+    display:run-in;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 5px;
+    font-size: 3rem;
+    background-position: center;
+    background-size: cover;
+    background-image: linear-gradient(to right,  transparent, rgba(180, 182, 184, 0.409) ),
+     url("../../../assets/fotos/perfil2.jpg");
+  }
+  .text-center{
+    text-align: center;
+  }
+  
+  .cardTransp{
+    position: relative;
+    background-color: rgba(255, 255, 1255, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.322);
+    height: 400px;
+    width: 270px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    bottom: 20%;
+  }
