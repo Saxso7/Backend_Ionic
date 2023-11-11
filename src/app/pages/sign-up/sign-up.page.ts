@@ -55,7 +55,7 @@ export class SignUpPage implements OnInit {
           position: "middle",
           icon: "alert-circle-sharp"
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
 
       }).catch(error => {
         console.log(error);
