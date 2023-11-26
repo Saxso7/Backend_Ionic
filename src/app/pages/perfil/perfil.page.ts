@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'; 
 
@@ -20,7 +20,7 @@ export class PerfilPage implements OnInit {
 
   constructor(private api: ApiService, 
               private afAuth: AngularFireAuth,
-              private toastController: ToastController,
+              private alertController: AlertController,
               private storage: AngularFireStorage ) { }
 
   ngOnInit() {
@@ -54,9 +54,12 @@ export class PerfilPage implements OnInit {
   }
 
 
-  async actualizarCampo(campo: string) {
-    const toast = await this.toastController.create({
-      message: `¿Deseas actualizar el campo ${campo}?`,
+  async actualizarCampo() {
+    const userId = this.apiUserData.id;
+
+    const alert = await this.alertController.create({
+      header: 'Confirmar actualización',
+      message: '¿Deseas actualizar la información?',
       buttons: [
         {
           text: 'Cancelar',
@@ -65,31 +68,27 @@ export class PerfilPage implements OnInit {
         {
           text: 'Actualizar',
           handler: () => {
-            this.confirmarActualizacion(campo);
+            Object.keys(this.apiUserData).forEach(campo => {
+              const nuevoValor = this.apiUserData[campo];
+              this.api.updateUserField(userId, campo, nuevoValor).subscribe(response => {
+                if (response.success) {
+                  console.log(`Campo ${campo} actualizado con éxito`);
+                  this.apiUserData[campo] = nuevoValor;
+                } else {
+                  console.error(response.error);
+                }
+              });
+            });
           },
         },
       ],
     });
 
-    await toast.present();
+    await alert.present();
   }
+  
+  
 
-  confirmarActualizacion(campo: string) {
-    const userId = this.apiUserData.id;
-    const nuevoValor = this.apiUserData[campo];
 
-    this.api.updateUserField(userId, campo, nuevoValor).subscribe(response => {
-      if (response.success) {
-        // Manejar la respuesta o mostrar una notificación de éxito
-        console.log(`Campo ${campo} actualizado con éxito`);
-        // Actualizar el campo en el objeto local
-        this.apiUserData[campo] = nuevoValor;
-      } else {
-        // Manejar la respuesta en caso de error
-        console.error(response.error);
-      }
-    });
-
-  }
   
 }

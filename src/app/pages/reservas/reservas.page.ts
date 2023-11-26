@@ -7,6 +7,7 @@ import { ReservaService } from '../../services/reserva.service';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -37,6 +38,7 @@ export class ReservasPage implements OnInit {
               private api: ApiService,
               private afAuth: AngularFireAuth,
               private firebaseServ: FirebaseService,
+              private alertController: AlertController,
               private router:Router ) { }
 
 
@@ -116,53 +118,78 @@ export class ReservasPage implements OnInit {
       this.hoursAvailable = []; // Limpiar las horas si no se selecciona una fecha válida
     }
   }
-  submitReservation() {
-    if (this.selectedGym && this.selectedDate && this.selectedTime) {
-      // Obtener el gimnasio seleccionado
-      const selectedGymData = this.gyms.find((gym) => gym.title === this.selectedGym);
-      if (selectedGymData) {
-        // Construir los datos de la reserva
-        const reservationData = {
-          usuario: this.user,
-          nombreGym: selectedGymData.title,
-          direccion: selectedGymData.address,
-          horaAgendada: this.selectedTime,
-          fechaAgendada: this.selectedDate
-          
-        };
-  
-        // Llamar a la función postRes() de tu servicio API
-        this.api.postRes(reservationData)
-          .subscribe((response) => {
-            // Manejar la respuesta de la API si es necesario
-            console.log('Respuesta de la API:', response);
-  
-            // Resto del código para manejar la respuesta, redirección, etc.
-            this.reservaService.agregarReserva(reservationData);
-  
-            this.toastController.create({
-              message: 'Reserva realizada con éxito',
-              duration: 2500,
-              position: 'bottom'
-            }).then((toast) => {
-              toast.present();
-            });
-  
-            // Redirigir al usuario u otras acciones necesarias
-            // this.router.navigate(['/otra-pagina']);
-          }, (error) => {
-            // Manejar errores de la solicitud POST
-            console.error('Error al realizar la reserva:', error);
-  
-            // Muestra un mensaje de error o realiza alguna acción adecuada
-          });
-      } else {
-        console.log('Gimnasio no encontrado');
-      }
+// ... (otro código)
+
+async submitReservation() {
+  if (this.selectedGym && this.selectedDate && this.selectedTime) {
+    // Obtener el gimnasio seleccionado
+    const selectedGymData = this.gyms.find((gym) => gym.title === this.selectedGym);
+    if (selectedGymData) {
+      // Construir los datos de la reserva
+      const reservationData = {
+        usuario: this.user,
+        nombreGym: selectedGymData.title,
+        direccion: selectedGymData.address,
+        horaAgendada: this.selectedTime,
+        fechaAgendada: this.selectedDate
+      };
+
+      // Crear una alerta para confirmar la reserva
+      const alert = await this.alertController.create({
+        header: 'Confirmar Reserva',
+        message: `¿Estás seguro de que quieres hacer la reserva en ${selectedGymData.title} para el ${this.selectedDate} a las ${this.selectedTime}?`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              console.log('Reserva cancelada por el usuario');
+            }
+          },
+          {
+            text: 'Aceptar',
+            handler: () => {
+              // Llamar a la función postRes() de tu servicio API
+              this.api.postRes(reservationData)
+                .subscribe((response) => {
+                  // Manejar la respuesta de la API si es necesario
+                  console.log('Respuesta de la API:', response);
+
+                  // Resto del código para manejar la respuesta, redirección, etc.
+                  this.reservaService.agregarReserva(reservationData);
+
+                  // Crear una nueva alerta para indicar que la reserva se realizó con éxito
+                  this.alertController.create({
+                    header: 'Reserva Exitosa',
+                    message: 'La reserva se realizó con éxito',
+                    buttons: ['OK']
+                  }).then((successAlert) => {
+                    successAlert.present();
+                  });
+
+                  // Redirigir al usuario u otras acciones necesarias
+                  // this.router.navigate(['/otra-pagina']);
+                }, (error) => {
+                  // Manejar errores de la solicitud POST
+                  console.error('Error al realizar la reserva:', error);
+
+                  // Muestra un mensaje de error o realiza alguna acción adecuada
+                });
+            }
+          }
+        ]
+      });
+
+      // Mostrar la alerta de confirmación
+      await alert.present();
     } else {
-      console.log('Debes seleccionar un gimnasio, una fecha y una hora');
+      console.log('Gimnasio no encontrado');
     }
+  } else {
+    console.log('Debes seleccionar un gimnasio, una fecha y una hora');
   }
+}
+
   
   goCheckin(){
     this.router.navigate(['/checkin']);
